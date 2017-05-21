@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint src",
     "start": "node server.js"
+    "knex": "./node_modules/.bin/knex"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,9 @@
     "webpack-dev-server": "2.4.5"
   },
   "dependencies": {
+    "dotenv": "^4.0.0",
+    "knex": "^0.13.0",
+    "pg": "^6.2.2",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-redux": "^5.0.5",

@@ -2,10 +2,18 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
+  },
+  devServer: {
+    host: '0.0.0.0',
+  },
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
-    './src/index.jsx'
+    './src/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -16,12 +24,12 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loaders: ['babel-loader'],
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       }
     ]
   }

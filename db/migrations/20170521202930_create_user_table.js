@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('lastname');
     table.string('email');
     table.string('password_hash');
+    table.integer('userType_id');
     table.foreign('userType_id').references('id').inTable('userType');
   });
 

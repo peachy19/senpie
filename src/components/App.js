@@ -37,13 +37,5 @@ const Topics = ({ match }) => (
   </div>
 )
 
-export default App
+  export default App
 
-// const App = () => (
-//   <div>
-//     <h1>Hello Ben</h1>
-//     <Footer />
-//   </div>
-// )
-//
-// export default App

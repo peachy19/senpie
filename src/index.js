@@ -1,5 +1,6 @@
 // Application entrypoint.
 // Load up the application styles
+import { BrowserRouter } from 'react-router-dom'
 require('../styles/application.scss');
 
 import React from 'react'
@@ -12,8 +13,10 @@ import reducer from './reducers'
 const store = createStore(reducer)
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('react-root')
 )

@@ -3,7 +3,7 @@ import {
   HashRouter as Router,
   Route
 } from 'react-router-dom'
-
+import Home from './Home'
 const RouterBody = () => (
   <Router>
     <div>
@@ -14,11 +14,6 @@ const RouterBody = () => (
   </Router>
 )
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
 
 const About = () => (
   <div>

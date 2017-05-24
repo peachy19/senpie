@@ -5,9 +5,9 @@ import { render } from 'react-dom'
 import App from './components/App'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import /* reducer */ from 'reducer'
+import searchReducer from './reducers/search'
 
-store = createStore(  )
+const store = createStore( searchReducer )
 
 render(
   <Provider store={store}>

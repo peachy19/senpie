@@ -1,7 +1,7 @@
 import { FETECH_RESULT, HANDLE_RESULT } from '../actionTypes';
 import axios from 'axios';
 
-const searchReducer = (state='hi', action)=> {
+const searchReducer = (state=['user info'], action)=> {
   switch (action.type) {
     case FETECH_RESULT:
       return 'FETCHING';

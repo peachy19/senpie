@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-
+import Home from './Home'
 const RouterBody = () => (
   <Router>
     <div>
@@ -14,13 +14,6 @@ const RouterBody = () => (
       <Route path="/mentors" component={Mentors}/>
     </div>
   </Router>
-)
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-    <li><Link to="/mentors">See Mentors</Link></li>
-  </div>
 )
 
 const About = () => (

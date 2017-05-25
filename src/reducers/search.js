@@ -1,12 +1,14 @@
-import { FETECH_RESULT } from '../actionTypes'
+import { FETECH_RESULT, HANDLE_RESULT } from '../actionTypes';
+import axios from 'axios';
 
-const searchReducer = (state='', action)=> {
+const searchReducer = (state='hi', action)=> {
   switch (action.type) {
     case FETECH_RESULT:
-      console.log(action.payload.content);
-      return '';
+      return 'FETCHING';
+    case HANDLE_RESULT:
+      return action.payload;
     default:
-      return 'UNDEFINED'
+      return 'DEFINED'
   }
 }
 export default searchReducer

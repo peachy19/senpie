@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const search = require('./routes/search');
+const cors = require('cors')
 
 const app = express();
 
@@ -34,12 +36,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());  // Cross-Origin Resource Sharing
+
 
 // app.use(knexLogger(knex));
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/search', search);
 
 app.use('/seed', seedRoute(knex));
 

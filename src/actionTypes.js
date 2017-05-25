@@ -1,0 +1,2 @@
+export const SEARCH_COMPLETED = 'SEARCH_COMPLETED';
+export const ADD_MENTOR = 'ADD_MENTOR';

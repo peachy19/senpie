@@ -11,8 +11,8 @@ const Header = () => (
     <div>
       <nav>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
+        <li><Link to="/mentors">Mentors</Link></li>
+        <li><Link to="/user/:id">User</Link></li>
       </nav>
     </div>
   </Router>

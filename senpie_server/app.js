@@ -13,7 +13,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const search = require('./routes/search');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 

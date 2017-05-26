@@ -13,21 +13,21 @@ const client = new elasticsearch.Client({
 
 const log = console.log.bind(console);
 
-
 module.exports = (knex) => {
   const insertHelper = require('../../db/insert-helper')(knex);
   const queryHelper = require('../../db/query-helper')(knex);
 
   router.get('/', (req, res) => {
-    const query = 'Amazon engineer';
+    const query = 'Jon';
 
     res.send('Hello');
     searching(query).then(res => {
     });
   });
 
-  router.get('/get', (req, res) => {
-    const id = 1;
+  router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
     queryHelper.getUser(id).then(res => {
       console.log(res[0]);
     });
@@ -74,7 +74,7 @@ module.exports = (knex) => {
 };
 
 function parseObject(data){
-  let str = "";
+  let str = '';
   const ary = [];
 
   for (let property in data) {
@@ -90,7 +90,7 @@ function parseObject(data){
 
 function addToIndex(content, id) {
   console.log('in addToIndex');
-  body = {};
+  let body = {};
   body[prop] = content;
 
   return client.create({
@@ -115,7 +115,7 @@ function search(query) {
     }
   };
   return client.search({
-    size: 50,
+    size: 15,
     index: index,
     body: body
   });

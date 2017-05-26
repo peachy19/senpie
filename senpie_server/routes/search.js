@@ -4,6 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/:query', function(req, res) {
   // res.render('index', { title: 'Express' });
+
 const users = [
   {
     "id" : 0,
@@ -32,6 +33,7 @@ const users = [
 ]
   //res.json({data : req.params.query});
   res.json({data : users});
+
 });
 
 

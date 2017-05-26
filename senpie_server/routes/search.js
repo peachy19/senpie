@@ -18,7 +18,7 @@ module.exports = (knex) => {
   const insertTables = require('../../db/insert-tables')(knex);
 
   router.get('/', (req, res) => {
-    const query = 'Software Developer who has worked at Airbnb and has a PhD';
+    const query = 'Lyft';
 
     res.send('Hello');
     searching(query).then(res => {

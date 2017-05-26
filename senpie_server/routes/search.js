@@ -98,6 +98,7 @@ function search(query) {
     }
   };
   return client.search({
+    size: 50,
     index: index,
     body: body
   });

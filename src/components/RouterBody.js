@@ -1,10 +1,13 @@
 import React from 'react'
 import {
   HashRouter as Router,
-  Route
+  Route,
+  Link
 } from 'react-router-dom'
+
 import Profile from './Profile/Profile'
 import Mentors from './Mentors/Mentors'
+import Home from './HomePage/Home'
 
 const RouterBody = () => (
   <Router>
@@ -15,13 +18,6 @@ const RouterBody = () => (
     </div>
   </Router>
 )
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
 
 
 

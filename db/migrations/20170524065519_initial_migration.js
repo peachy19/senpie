@@ -38,14 +38,14 @@ exports.up = function(knex, Promise) {
       table.integer('list_id');
       table.integer('grad_year');
       table.integer('user_id');
-      table.foreign('user_id').references('user.id').onDelete('CASCADE');
+      table.foreign('user_id').references('users.id').onDelete('CASCADE');
       table.integer('education_degree_id');
       table.foreign('education_degree_id').references('education_degree.id').onDelete('CASCADE');
     }),
     knex.schema.createTable('company_detail', table => {
       table.increments('id');
       table.integer('user_id');
-      table.foreign('user_id').references('user.id').onDelete('CASCADE');
+      table.foreign('user_id').references('users.id').onDelete('CASCADE');
       table.integer('company_id');
       table.foreign('company_id').references('company.id').onDelete('CASCADE');
       table.integer('title_id');
@@ -54,9 +54,9 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('invitation', table => {
       table.increments('id');
       table.integer('sender_id');
-      table.foreign('sender_id').references('user.id').onDelete('CASCADE');
+      table.foreign('sender_id').references('users.id').onDelete('CASCADE');
       table.integer('receiver_id');
-      table.foreign('receiver_id').references('user.id').onDelete('CASCADE');
+      table.foreign('receiver_id').references('users.id').onDelete('CASCADE');
       table.integer('response_id');
       table.foreign('response_id').references('response.id').onDelete('CASCADE');
     }),
@@ -66,7 +66,7 @@ exports.up = function(knex, Promise) {
       table.integer('content_type_id');
       table.foreign('content_type_id').references('content_type.id').onDelete('CASCADE');
       table.integer('user_id');
-      table.foreign('user_id').references('user.id').onDelete('CASCADE');
+      table.foreign('user_id').references('users.id').onDelete('CASCADE');
     })
   ]);
 };

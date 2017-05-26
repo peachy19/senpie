@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import ProfileHead from './ProfileHead'
-import Skills from './Skills'
-import Experience from './Experience'
-import Education from './Education'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ProfileHead from './ProfileHead';
+import Skills from './Skills';
+import Experience from './Experience';
+import Education from './Education';
 
 const mapStateToProps = ({mentors}, ownProps) => {
   const { id } = ownProps.match.params;
@@ -18,7 +18,6 @@ const mapStateToProps = ({mentors}, ownProps) => {
 class Profile extends Component {
   render() {
     const user = this.props.mentors[this.props.id];
-    console.log("Clicked user is", user);
     return (
       <div>
         <ProfileHead

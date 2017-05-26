@@ -26,7 +26,7 @@ const mentorList = [];
 const start = 1980;
 const end = 2017;
 
-const insertTables = require('../db/insert-tables')(knex);
+const insertTables = require('../db/insert-helper')(knex);
 
 const log = console.log.bind(console);
 

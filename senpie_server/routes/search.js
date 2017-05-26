@@ -13,26 +13,43 @@ const client = new elasticsearch.Client({
 
 const log = console.log.bind(console);
 
-
 module.exports = (knex) => {
-  const insertTables = require('../../db/insert-tables')(knex);
+  const insertHelper = require('../../db/insert-helper')(knex);
+  const queryHelper = require('../../db/query-helper')(knex);
 
   router.get('/', (req, res) => {
-    const query = 'Lyft';
+    const query = 'Jon';
 
     res.send('Hello');
     searching(query).then(res => {
     });
   });
 
+  router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    queryHelper.getUser(id).then(res => {
+      console.log(res[0]);
+    });
+    queryHelper.getCompanyName(id).then(res => {
+      console.log(res[0]);
+    });
+    queryHelper.getDegreeName(id).then(res => {
+      console.log(res[0]);
+    });
+    queryHelper.getFullName(id).then(res => {
+      console.log(res[0]);
+    });
+  });
+
   async function insertUser(data) {
-    const userType = await insertTables.insertUserType(data.userType);
-    const user = await insertTables.insertUser(data.name, data.email, userType[0]);
-    const educationDegree = await insertTables.insertEducationDegree(data.educationDegree);
-    const title = await insertTables.insertTitle(data.title);
-    const company = await insertTables.insertCompany(data.companyName, data.companyType, data.size);
-    const educationDetail = await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
-    const companyDetail = await insertTables.insertCompanyDetail(user[0], company[0], title[0]);
+    const userType = await insertHelper.insertUserType(data.userType);
+    const user = await insertHelper.insertUser(data.name, data.email, userType[0]);
+    const educationDegree = await insertHelper.insertEducationDegree(data.educationDegree);
+    const title = await insertHelper.insertTitle(data.title);
+    const company = await insertHelper.insertCompany(data.companyName, data.companyType, data.size);
+    const educationDetail = await insertHelper.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
+    const companyDetail = await insertHelper.insertCompanyDetail(user[0], company[0], title[0]);
 
     const concatData = parseObject(data);
 
@@ -57,7 +74,7 @@ module.exports = (knex) => {
 };
 
 function parseObject(data){
-  let str = "";
+  let str = '';
   const ary = [];
 
   for (let property in data) {
@@ -73,7 +90,7 @@ function parseObject(data){
 
 function addToIndex(content, id) {
   console.log('in addToIndex');
-  body = {};
+  let body = {};
   body[prop] = content;
 
   return client.create({
@@ -98,7 +115,7 @@ function search(query) {
     }
   };
   return client.search({
-    size: 50,
+    size: 15,
     index: index,
     body: body
   });

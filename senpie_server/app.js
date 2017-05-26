@@ -20,7 +20,7 @@ const knex          = require('knex')(knexConfig[ENV]);
 // const knexLogger    = require('knex-logger');
 
 
-const seedRoute = require('./routes/seed');
+const searchRoute = require('./routes/search');
 
 
 // view engine setup
@@ -41,7 +41,7 @@ app.use('/', index);
 app.use('/users', users);
 
 
-app.use('/seed', seedRoute(knex));
+app.use('/search', searchRoute(knex));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

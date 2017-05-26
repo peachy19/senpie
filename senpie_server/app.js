@@ -7,9 +7,9 @@ const express = require('express');
 const path = require('path');
 // const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+// importing all router files
 const index = require('./routes/index');
 const users = require('./routes/users');
 const search = require('./routes/search');
@@ -34,10 +34,13 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());  // Cross-Origin Resource Sharing
-
+app.use(cookieSession({
+  name: 'session',
+  keys: ['apple', 'orange']
+}));
 
 // app.use(knexLogger(knex));
 

@@ -1,10 +1,22 @@
 require('../styles/application.scss');
 
+
 import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { Provider } from 'react-redux'
+import * as reducers from './reducers'
+import thunk from 'redux-thunk';
+import logger from 'redux-logger'
+
+const reducer = combineReducers({...reducers});
+const store = compose(applyMiddleware(thunk, logger))(createStore)(reducer);
 
 render(
-      <App />,
+  <Provider store={store}>
+      <App />
+  </Provider>,
   document.getElementById('react-root')
 )
+

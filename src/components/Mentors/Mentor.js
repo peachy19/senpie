@@ -6,7 +6,7 @@ class Mentor extends Component {
     return (
       <Link to={`/user/${this.props.id}`} >
       <div >
-        <img src="../../img/sample.jpeg" className="img-circle"/>
+        <img src="../../images/sample.jpeg" className="img-circle"/>
         <span>{this.props.name}</span>
         <span>{this.props.title}</span>
       </div>

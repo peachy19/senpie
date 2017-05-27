@@ -20,7 +20,7 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
 
   axios.get(`http://localhost:8080/search/${query}`)
     .then(function(response) {
-      console.log("Response is ", response);
+      console.log('Response is', response);
       dispatch(handleResponse(response.data.data));
     }).catch(function(error) {
       console.log(error);
@@ -32,11 +32,14 @@ export default class SearchBar extends Component {
   render() {
     return (
     <div>
-      <form onSubmit={this.props.dispatchSearchAndGetResults}>
-        <input type="text" id='myText'/>
-        <input type="submit" value="Submit">{this.props.searchbarText}</input>
-      </form>
-    </div>
+      <div className="col-lg-3"></div>
+      <div className="col-lg-6">
+        <form onSubmit={this.props.dispatchSearchAndGetResults}>
+          <input type="text" id='myText' className='form-control' value={this.props.searchbarText}></input>
+          <input type="submit" value="Submit" className="btn btn-default"></input>
+        </form>
+        </div>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ class ProfileHead extends Component {
     return (
       <div className="panel panel-default">
         <div className="panel-body text-center">
-          <img src="../../img/sample.jpeg" className="img-circle"/>
+          <img src="../../images/sample.jpeg" className="img-circle"/>
           <p>{this.props.name}</p>
           <p>{this.props.title}</p>
           <button className="btn btn-default">CONNECT</button>

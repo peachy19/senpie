@@ -1,2 +1,2 @@
 export * from './mentors.js';
-export * from './searchbar.js';
+export * from './searchBar.js';

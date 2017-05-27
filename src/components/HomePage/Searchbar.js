@@ -1,12 +1,15 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { handleResponse } from '../../actions/mentors.js';
+import { handleResponse } from '../../actions/get_mentors.js';
 import { updateSearchbar } from '../../actions/searchbar_update.js';
 import axios from 'axios';
 
-const mapStateToProps = ({searchbarText}) => {
-  searchbarText
-};
+function mapStateToProps(state){
+  return {
+    searchbar: state.searchbar
+  }
+
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchSearchAndGetResults: (e) => dispatch(dispatchSearchAndGetResults(e))
@@ -16,7 +19,10 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   e.preventDefault();
   window.location = '#/mentors'
   const query = document.getElementById('myText').value;
-  dispatch(updateSearchbar(query));
+    const style = {
+    marginTop: '40px'
+  }
+  dispatch(updateSearchbar(query, style));
 
   axios.get(`http://localhost:8080/search/${query}`)
     .then(function(response) {
@@ -29,14 +35,16 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SearchBar extends Component {
+
   render() {
+
     return (
     <div>
       <div className="col-lg-3"></div>
       <div className="col-lg-6">
-        <form onSubmit={this.props.dispatchSearchAndGetResults}>
-          <input type="text" id='myText' className='form-control' value={this.props.searchbarText}></input>
-          <input type="submit" value="Submit" className="btn btn-default"></input>
+        <form onSubmit={this.props.dispatchSearchAndGetResults} style = {this.props.searchbar.style}>
+          <input type="text" id='myText' className='form-control' value={this.props.searchbar.text}></input>
+          <input type="submit" value="Search" className="btn btn-default"></input>
         </form>
         </div>
       </div>

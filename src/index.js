@@ -1,6 +1,5 @@
 require('../styles/application.scss');
 
-
 import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
@@ -11,6 +10,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 
 const reducer = combineReducers({...reducers});
+
 const store = compose(applyMiddleware(thunk, logger))(createStore)(reducer);
 
 render(

@@ -21,7 +21,7 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   axios.get(`http://localhost:8080/search/${query}`)
     .then(function(response) {
       console.log("Response is ", response);
-      dispatch(handleResponse(response.data.data));
+      dispatch(handleResponse(response.data));
     }).catch(function(error) {
       console.log(error);
     });

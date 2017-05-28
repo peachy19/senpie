@@ -1,6 +1,9 @@
 const express = require('express');
 const elasticsearch = require('elasticsearch');
 const router  = express.Router();
+const CORS = require('cors');
+router.use(CORS());
+
 
 // elasticsearch config
 const index = 'user';
@@ -18,47 +21,16 @@ module.exports = (knex) => {
   const queryHelper = require('../../db/query-helper')(knex);
 
   router.get('/:query', (req, res) => {
-    const query = 'amazon engineer';
+    const query = req.params.query;
 
-    data = {};
-    console.log("before enerting mess");
     ids = [];
     searching(query).then(ress => {
       ress.hits.hits.forEach( ele => {
-        console.log('before pushing');
         ids.push(ele._id);
       });
-      var data = [];
-      ids.forEach( id => {
-        queryHelper.getUser(id).then( userInfo => {
-          data.push(userInfo[0]);
-          return data;
-        }).then( data => {
-        console.log('final data is', data);
-        res.json(data);
-        });
-      });
+      assembleData(queryHelper ,ids, res);
     });
   });
-
-  // router.get('/:id', (req, res) => {
-  //   const id = req.params.id;
-
-  //   console.log('within get /:id');
-
-  //   queryHelper.getUser(id).then(res => {
-  //     console.log('user is',res[0]);
-  //   });
-  //   queryHelper.getCompanyName(id).then(res => {
-  //     console.log('companyName is',res[0]);
-  //   });
-  //   queryHelper.getDegreeName(id).then(res => {
-  //     console.log('DegreeName us', res[0]);
-  //   });
-  //   queryHelper.getFullName(id).then(res => {
-  //     console.log('fullname is',res[0]);
-  //   });
-  // });
 
   return router;
 };
@@ -81,6 +53,10 @@ module.exports = (knex) => {
   //   return data;
   // }
 
+async function assembleData(queryHelper, ids, res) {
+  var data = [];
+  Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => res.json(users) );
+}
 
 async function searching(query) {
     await waitForIndexing();

@@ -82,8 +82,8 @@ async function initializeES() {
 
 async function insertUser(data) {
   const userType = await insertTables.insertUserType(data.userType);
-  const user = await insertTables.insertUser(data.name, data.email, userType[0]);
-  const educationDegree = await9 insertTables.insertEducationDegree(data.educationDegree);
+  const user = await insertTables.insertUser(data.name, data.email, userType[0], 123);
+  const educationDegree = await insertTables.insertEducationDegree(data.educationDegree);
   const title = await insertTables.insertTitle(data.title);
   const company = await insertTables.insertCompany(data.companyName, data.companyType, data.size);
   const educationDetail = await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);

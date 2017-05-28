@@ -1,6 +1,9 @@
 const express = require('express');
 const elasticsearch = require('elasticsearch');
 const router  = express.Router();
+const CORS = require('cors');
+router.use(CORS());
+
 
 // elasticsearch config
 const index = 'user';
@@ -17,61 +20,53 @@ module.exports = (knex) => {
   const insertHelper = require('../../db/insert-helper')(knex);
   const queryHelper = require('../../db/query-helper')(knex);
 
-  router.get('/', (req, res) => {
-    const query = 'Jon';
+  router.get('/:query', (req, res) => {
+    const query = req.params.query;
 
-    res.send('Hello');
-    searching(query).then(res => {
+    ids = [];
+    searching(query).then(ress => {
+      ress.hits.hits.forEach( ele => {
+        ids.push(ele._id);
+      });
+      assembleData(queryHelper ,ids, res);
     });
   });
-
-  router.get('/:id', (req, res) => {
-    const id = req.params.id;
-
-    queryHelper.getUser(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getCompanyName(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getDegreeName(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getFullName(id).then(res => {
-      console.log(res[0]);
-    });
-  });
-
-  async function insertUser(data) {
-    const userType = await insertHelper.insertUserType(data.userType);
-    const user = await insertHelper.insertUser(data.name, data.email, userType[0]);
-    const educationDegree = await insertHelper.insertEducationDegree(data.educationDegree);
-    const title = await insertHelper.insertTitle(data.title);
-    const company = await insertHelper.insertCompany(data.companyName, data.companyType, data.size);
-    const educationDetail = await insertHelper.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
-    const companyDetail = await insertHelper.insertCompanyDetail(user[0], company[0], title[0]);
-
-    const concatData = parseObject(data);
-
-    await addToIndex(concatData, user[0]);
-    // await getFromIndex(user[0]);
-    // await waitForIndexing();
-    // await search();
-    return data;
-  }
-
-  async function searching(query) {
-    await waitForIndexing();
-    const searchResult = await search(query);
-    // console.log(searchResult.hits.hits);
-    console.log(searchResult.hits.hits);
-    for (let i = 0; searchResult.hits.hits.length; i++) {
-      console.log(searchResult.hits.hits[i]._source.content);
-    }
-  }
 
   return router;
 };
+
+  // async function insertUser(data) {
+  //   const userType = await insertHelper.insertUserType(data.userType);
+  //   const user = await insertHelper.insertUser(data.name, data.email, userType[0]);
+  //   const educationDegree = await insertHelper.insertEducationDegree(data.educationDegree);
+  //   const title = await insertHelper.insertTitle(data.title);
+  //   const company = await insertHelper.insertCompany(data.companyName, data.companyType, data.size);
+  //   const educationDetail = await insertHelper.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
+  //   const companyDetail = await insertHelper.insertCompanyDetail(user[0], company[0], title[0]);
+
+  //   const concatData = parseObject(data);
+
+  //   await addToIndex(concatData, user[0]);
+  //   // await getFromIndex(user[0]);
+  //   // await waitForIndexing();
+  //   // await search();
+  //   return data;
+  // }
+
+async function assembleData(queryHelper, ids, res) {
+  var data = [];
+  Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => res.json(users) );
+}
+
+async function searching(query) {
+    await waitForIndexing();
+    const searchResult = await search(query);
+    // for (let i = 0; i < searchResult.hits.hits.length; i++) {
+    //   console.log('searchResult is ', searchResult.hits.hits[i]._id._source.content);
+    // }
+
+    return searchResult;
+  }
 
 function parseObject(data){
   let str = '';

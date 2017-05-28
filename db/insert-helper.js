@@ -2,10 +2,12 @@
 // module.exports = function()...
 module.exports = function(knex) {
   return {
-    insertUser: (name, email, type_id) => {
+
+    insertUser: (name, email, type_id, passWord) => {
       console.log('Inserting into users');
       return knex.returning('id')
-      .insert({name: name, email: email, user_type_id: type_id})
+      .insert({name: name, email: email, user_type_id: type_id, hs_pswd: passWord})
+
       .into('users');
     },
     insertUserType: (type) => {
@@ -52,3 +54,5 @@ module.exports = function(knex) {
     }
   };
 };
+
+

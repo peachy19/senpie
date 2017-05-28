@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { handleResponse } from '../../actions/get_mentors.js';
 import { updateSearchbar } from '../../actions/searchbar_update.js';
-import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
 
 function mapStateToProps(state){
@@ -28,7 +27,7 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   axios.get(`http://localhost:8080/search/${query}`)
     .then(function(response) {
       console.log('Response is', response);
-      dispatch(handleResponse(response.data.data));
+      dispatch(handleResponse(response.data));
     }).catch(function(error) {
       console.log(error);
     });

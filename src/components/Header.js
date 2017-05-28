@@ -1,15 +1,26 @@
 import React from 'react'
 import {
   HashRouter as Router,
-  Link
 } from 'react-router-dom'
 
 const Header = () => (
   <Router>
     <div>
-      <nav>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/mentors">Mentors</Link></li>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button className="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            Senpie
+          </div>{/*Navbar Header*/}
+          <nav className="collapse navbar-collapse" id="bs-navbar">
+            <button type="button" className="btn btn-default navbar-btn navbar-right">LOG IN</button>
+            <button type="button" className="btn btn-default navbar-btn navbar-right">SIGN UP</button>
+          </nav>
+        </div>{/*Container Fluid*/}
       </nav>
     </div>
   </Router>

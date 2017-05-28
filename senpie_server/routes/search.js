@@ -2,6 +2,9 @@ const express = require('express');
 const elasticsearch = require('elasticsearch');
 const router  = express.Router();
 
+const CORS = require('cors');
+router.use(CORS());
+
 // elasticsearch config
 const index = 'user';
 const type = 'userDetail';
@@ -17,30 +20,20 @@ module.exports = (knex) => {
   const insertHelper = require('../../db/insert-helper')(knex);
   const queryHelper = require('../../db/query-helper')(knex);
 
-  router.get('/', (req, res) => {
-    const query = 'amazon software engineer';
+  router.get('/:query', (req, res) => {
+    const query = req.params.query;
 
-    res.send('Hello');
-    searching(query).then(res => {
+    const ids = [];
+    searching(query).then(ress => {
+      ress.hits.hits.forEach(ele => {
+        ids.push(ele._id);
+      });
+      assembleData(queryHelper, ids, res);
     });
   });
 
-  router.get('/:id', (req, res) => {
-    const id = req.params.id;
-
-    queryHelper.getUser(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getCompanyName(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getDegreeName(id).then(res => {
-      console.log(res[0]);
-    });
-    queryHelper.getFullName(id).then(res => {
-      console.log(res[0]);
-    });
-  });
+  return router;
+};
 
   async function insertUser(data) {
     const userType = await insertHelper.insertUserType(data.userType);
@@ -60,18 +53,20 @@ module.exports = (knex) => {
     return data;
   }
 
-  async function searching(query) {
+async function assembleData(queryHelper, ids, res) {
+  Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => res.json(users));
+}
+
+async function searching(query) {
     await waitForIndexing();
     const searchResult = await search(query);
-    // console.log(searchResult.hits.hits);
-    console.log(searchResult.hits.hits);
-    for (let i = 0; searchResult.hits.hits.length; i++) {
-      console.log(searchResult.hits.hits[i]._source.content);
-    }
+    // for (let i = 0; i < searchResult.hits.hits.length; i++) {
+    //   console.log('searchResult is ', searchResult.hits.hits[i]._id._source.content);
+    // }
+
+    return searchResult;
   }
 
-  return router;
-};
 
 function parseObject(data){
   let str = '';

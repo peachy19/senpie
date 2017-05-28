@@ -8,7 +8,7 @@ const mapStateToProps = ({ mentors }) => ({mentors});
 export default class MentorList extends Component {
   render() {
     return (
-      <div>
+      <div className='mentorList'>
       {
         this.props.mentors.map(mentor => (
           <Mentor

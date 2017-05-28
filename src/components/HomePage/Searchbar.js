@@ -1,12 +1,15 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { handleResponse } from '../../actions/mentors.js';
+import { handleResponse } from '../../actions/get_mentors.js';
 import { updateSearchbar } from '../../actions/searchbar_update.js';
 import axios from 'axios';
 
-const mapStateToProps = ({searchbarText}) => {
-  searchbarText
-};
+function mapStateToProps(state){
+  return {
+    searchbar: state.searchbar
+  }
+
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchSearchAndGetResults: (e) => dispatch(dispatchSearchAndGetResults(e))
@@ -16,12 +19,15 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   e.preventDefault();
   window.location = '#/mentors'
   const query = document.getElementById('myText').value;
-  dispatch(updateSearchbar(query));
+  const style = {
+    marginTop: '40px'
+  }
+  dispatch(updateSearchbar(query, style));
 
   axios.get(`http://localhost:8080/search/${query}`)
     .then(function(response) {
-      console.log("Response is ", response);
-      dispatch(handleResponse(response.data.data));
+      console.log('Response is', response);
+      dispatch(handleResponse(response.data));
     }).catch(function(error) {
       console.log(error);
     });
@@ -29,14 +35,24 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SearchBar extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.handleChange = this.handleChange.bind(this);
+  // }
+  // handleChange(event){
+  //   this.setState({this.props.searchbar.text: event.target.value});
+  // }
   render() {
     return (
     <div>
-      <form onSubmit={this.props.dispatchSearchAndGetResults}>
-        <input type="text" id='myText'/>
-        <input type="submit" value="Submit">{this.props.searchbarText}</input>
-      </form>
-    </div>
+      <div className="col-lg-3"></div>
+      <div className="col-lg-6">
+        <form onSubmit={this.props.dispatchSearchAndGetResults} style = {this.props.searchbar.style}>
+          <input type="text" id='myText' className='form-control' placeholder={this.props.searchbar.text} onChange={this.handleChange}></input>
+          <input type="submit" value="Search" className="btn btn-default"></input>
+        </form>
+        </div>
+      </div>
     );
   }
 }

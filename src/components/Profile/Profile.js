@@ -21,15 +21,13 @@ class Profile extends Component {
     return (
       <div>
         <ProfileHead
-          name={user.name}
-          title={user.title}
+          name={user[0].user_name}
+          title={user[0].job_title}
         />
-        <Skills
-          skills={user.skills}/>
         <Experience
-          experience={user.experience}/>
+          experience={user[0].company_name}/>
         <Education
-          education={user.education}/>
+          education={user[0].grad_year}/>
       </div>
     )
   }

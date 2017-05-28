@@ -7,15 +7,17 @@ const mapStateToProps = ({ mentors }) => ({mentors});
 @connect(mapStateToProps)
 export default class MentorList extends Component {
   render() {
+    console.log("Mentors", this.props.mentors);
+    console.log("mentor", this.props.mentors[0])
     return (
       <div className='mentorList'>
       {
         this.props.mentors.map(mentor => (
           <Mentor
-            key={mentor.id}
-            id={mentor.id}
-            name={mentor.name}
-            title={mentor.title}
+            key={this.props.mentors.indexOf(mentor)}
+            id={this.props.mentors.indexOf(mentor)}
+            name={mentor[0].user_name}
+            title={mentor[0].job_title}
           />
         ))
       }

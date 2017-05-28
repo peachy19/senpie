@@ -18,7 +18,7 @@ module.exports = (knex) => {
   const queryHelper = require('../../db/query-helper')(knex);
 
   router.get('/', (req, res) => {
-    const query = 'Jon';
+    const query = 'amazon software engineer';
 
     res.send('Hello');
     searching(query).then(res => {

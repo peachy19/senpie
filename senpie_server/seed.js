@@ -4,6 +4,9 @@ const ENV   = process.env.ENV || 'development';
 const elasticsearch = require('elasticsearch');
 const knexConfig    = require('../knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
+const fs = require('fs');
+const faker = require('faker');
+
 // elasticsearch config
 const index = 'user';
 const type = 'userDetail';
@@ -14,56 +17,65 @@ const client = new elasticsearch.Client({
   log: 'trace'
 });
 
-const insertTables = require('../db/insert-tables')(knex);
+const userTypes = ['mentor', 'user'];
+const degrees = ['BSc', 'MSc', 'BASC', 'MENG', 'PhD'];
+const companyType = ['tech'];
+const titles = ['Software Engineer', 'Software Developer', 'Junior Software Developer', 'QA engineer', 'Software Engineer in Test', 'Senior Software Engineer', 'Intermediate Software Engineer', 'Programmer', 'QA Analyst'];
+const companyList = [];
+const mentorList = [];
+const start = 1980;
+const end = 2017;
+
+const insertTables = require('../db/insert-helper')(knex);
 
 const log = console.log.bind(console);
 
-const data = [{
-  name: 'Jon',
-  userType: 'mentor',
-  email: 'jon@hi.com',
-  educationDegree: 'PhD',
-  gradYear: 2015,
-  companyName: 'Google',
-  companyType: 'tech',
-  size: 100000,
-  title: 'Software Engineer',
-}, {
-  name: 'Ben',
-  userType: 'user',
-  email: 'ben@hi.com',
-  educationDegree: 'PhD',
-  gradYear: 2011,
-  companyName: 'Amaz',
-  companyType: 'tech',
-  size: 120000,
-  title: 'Full Stack Software Engineer',
-}, {
-  name: 'Ashin',
-  userType: 'user',
-  email: 'shin@hi.com',
-  educationDegree: 'PhD',
-  gradYear: 2011,
-  companyName: 'Amaz',
-  companyType: 'tech',
-  size: 120000,
-  title: 'Front End Software Engineer',
-}];
+function randYear(start, end) {
+  return start + Math.floor(Math.random() * (end - start));
+}
+
+function randAry(ary) {
+  return ary[Math.floor(Math.random() * ary.length)];
+}
+
+function fakerF() {
+  const data = {
+    name: faker.name.findName(),
+    userType: randAry(userTypes),
+    email: faker.internet.email(),
+    educationDegree: randAry(degrees),
+    gradYear: randYear(start, end),
+    companyName: randAry(companyList),
+    companyType: randAry(companyType),
+    size: randYear(200000, 1000),
+    title: randAry(titles)
+  }
+
+  mentorList.push(data);
+}
+
+const data = fs.readFileSync('./fileio/company_list.txt');
+const res = data.toString().split(',');
+for (let i = 0; i < res.length; i++) {
+  companyList.push(res[i].trim());
+}
+
+for (let i = 0; i < 100; i++) {
+  fakerF();
+}
 
 initializeES();
 
-for (let i = 0; i < data.length; i++) {
-  insertUser(data[i]).then((result) => {
-    console.log('result', result);
+for (let i = 0; i < mentorList.length; i++) {
+  insertUser(mentorList[i]).then((result) => {
+
   }).catch(err => {
     console.error(err);
   })
 }
 
-
-
 async function initializeES() {
-  // await dropIndex();
+  await dropIndex();
   await dropDocIndex();
   await createIndex();
 }
@@ -71,7 +83,7 @@ async function initializeES() {
 async function insertUser(data) {
   const userType = await insertTables.insertUserType(data.userType);
   const user = await insertTables.insertUser(data.name, data.email, userType[0]);
-  const educationDegree = await insertTables.insertEducationDegree(data.educationDegree);
+  const educationDegree = await9 insertTables.insertEducationDegree(data.educationDegree);
   const title = await insertTables.insertTitle(data.title);
   const company = await insertTables.insertCompany(data.companyName, data.companyType, data.size);
   const educationDetail = await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
@@ -80,9 +92,6 @@ async function insertUser(data) {
   const concatData = parseObject(data);
   console.log('concatData', concatData, user[0]);
   await addToIndex(concatData, user[0]);
-  // await getFromIndex(user[0]);
-  // await waitForIndexing();
-  // await search();
 }
 
 

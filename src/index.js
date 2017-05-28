@@ -7,9 +7,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import * as reducers from './reducers'
 import thunk from 'redux-thunk';
-import logger from 'redux-logger'
+import logger from 'redux-logger';
+import { reducer as formReducer } from 'redux-form';
 
-const reducer = combineReducers({...reducers});
+//Appending formReducer to the object of other reducers
+const reducer = combineReducers(Object.assign({formReducer},{...reducers}));
 const store = compose(applyMiddleware(thunk, logger))(createStore)(reducer);
 
 render(

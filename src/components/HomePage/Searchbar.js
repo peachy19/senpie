@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { handleResponse } from '../../actions/get_mentors.js';
 import { updateSearchbar } from '../../actions/searchbar_update.js';
+import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
 
 function mapStateToProps(state){
@@ -19,7 +20,7 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   e.preventDefault();
   window.location = '#/mentors'
   const query = document.getElementById('myText').value;
-    const style = {
+  const style = {
     marginTop: '40px'
   }
   dispatch(updateSearchbar(query, style));
@@ -35,15 +36,20 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SearchBar extends Component {
-
+  // constructor(props) {
+  //   super(props);
+  //   this.handleChange = this.handleChange.bind(this);
+  // }
+  // handleChange(event){
+  //   this.setState({this.props.searchbar.text: event.target.value});
+  // }
   render() {
-
     return (
     <div>
       <div className="col-lg-3"></div>
       <div className="col-lg-6">
         <form onSubmit={this.props.dispatchSearchAndGetResults} style = {this.props.searchbar.style}>
-          <input type="text" id='myText' className='form-control' value={this.props.searchbar.text}></input>
+          <input type="text" id='myText' className='form-control' placeholder={this.props.searchbar.text} onChange={this.handleChange}></input>
           <input type="submit" value="Search" className="btn btn-default"></input>
         </form>
         </div>

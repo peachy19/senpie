@@ -3,16 +3,15 @@ require('../styles/application.scss');
 import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import searchReducer from './reducers/search'
+import * as reducers from './reducers'
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
-console.log('searchReducer is ',searchReducer);
-const store = createStore(
-  searchReducer,
-  applyMiddleware(thunk)
-);
+//Appending formReducer to the object of other reducers
+const reducer = combineReducers({...reducers});
+const store = compose(applyMiddleware(thunk, logger))(createStore)(reducer);
 
 render(
   <Provider store={store}>
@@ -20,3 +19,4 @@ render(
   </Provider>,
   document.getElementById('react-root')
 )
+

@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
   },
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     './src/index.js'
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   }

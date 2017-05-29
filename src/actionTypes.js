@@ -1,6 +1,7 @@
-const FETECH_RESULT = 'fetch_result'
 const HANDLE_RESULT = 'handle_result'
+const UPDATE_SEARCHBAR = 'update_searchbar'
 module.exports = {
-  FETECH_RESULT,
-  HANDLE_RESULT
+  HANDLE_RESULT,
+  UPDATE_SEARCHBAR,
 };
+

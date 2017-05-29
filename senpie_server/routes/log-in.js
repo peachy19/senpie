@@ -6,10 +6,9 @@ const knex          = require('knex')(knexConfig[ENV]);
 
 
 // user login
+// currently faking log in
 router.get('/', function(req, res) {
-  let userName = req.body.username;
-  let password = req.body.password;
-  console.log(dbHelper());
+  res.json('userId : 1');
 });
 
 

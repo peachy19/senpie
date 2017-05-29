@@ -23,7 +23,7 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
     marginTop: '40px'
   }
   dispatch(updateSearchbar(query, style));
-  console.log("I am in dispaltch search");
+  console.log("I am in dispatch search");
   axios.get(`http://localhost:8000/search/${query}`)
     .then(function(response) {
       console.log('Response is', response);

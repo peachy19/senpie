@@ -14,6 +14,7 @@ const RouterBody = () => (
       <Route exact path="/" component={Home}/>
       <Route path="/mentors" component={Mentors}/>
       <Route exact path="/user/:id" component={Profile}/>
+      <Route exact path='/signIn/:id' component={Home}/>
     </div>
   </Router>
 )

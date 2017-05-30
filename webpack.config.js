@@ -12,13 +12,16 @@ module.exports = {
   },
   devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:4000',
     './src/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/build/'
+  },
+  node: {
+    fs: 'empty'
   },
   module: {
     loaders: [

@@ -79,10 +79,9 @@ function parseCSV(map) {
       buffer += str + '.' + degree + ',\n';
       if (map[company].hasOwnProperty(degree)) {
         map[company][degree].forEach(ele => {
-          prepend += ele;
+          buffer += prepend + ele + ',\n';
         })
       }
-      buffer += prepend + ',\n';
     }
   }
 }
@@ -98,10 +97,7 @@ function writeNewCSV() {
 }
 
 function reformatCSV() {
-  buffer = buffer.replace(/Mr./ig, '');
-  buffer = buffer.replace(/Dr./ig, 'Dr');
-  buffer = buffer.replace(/Miss./ig, '');
-  buffer = buffer.replace(/Ms./g, '');
-  buffer = buffer.replace(/Jr./ig, '');
-  buffer = buffer.replace(/Sr./ig, '');
+  buffer = buffer.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister/g, match => {
+    return '';
+  });
 }

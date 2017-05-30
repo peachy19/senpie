@@ -1,0 +1,3 @@
+get: user_id
+
+user_type, name, email, educaiton, company, grad_year, company detail, Size of Compnay.

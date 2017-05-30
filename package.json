@@ -38,6 +38,7 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.1",
+    "d3": "file:d3",
     "eslint": "3.19.0",
     "eslint-plugin-react": "7.0.1",
     "node-sass": "4.5.3",
@@ -45,12 +46,14 @@
     "sass-loader": "6.0.5",
     "sockjs-client": "^1.1.1",
     "style-loader": "0.17.0",
-    "webpack": "2.5.1",
-    "webpack-dev-server": "2.4.5"
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "d3": "file:d3",
     "dotenv": "^4.0.0",
+    "faker": "^4.1.0",
     "knex": "^0.13.0",
     "pg": "^6.2.2",
     "react": "15.5.4",

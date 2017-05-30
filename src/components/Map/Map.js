@@ -7,11 +7,23 @@ class Map extends Component {
 
   componentDidMount () {
     const map = new google.maps.Map(this.refs.map, {zoom: 11});
+    const points = [];
 
-    var points = [
-      {lat: 49.23232, lng: -123.1003, label: 'a', data: {name:'john', age:33, city:'vancouver'}},
-      {lat: 49.27232, lng: -123.1193, label: 'b'}
-    ];
+    this.props.mentors.map((mentor) => {
+      const loc = {
+        lat: Number(mentor[0].latitude), lng: Number(mentor[0].longitude), data: {name: mentor[0].user_name, job_title: mentor[0].job_title}
+      }
+      points.push(loc);
+    });
+
+    console.log('Points are', points);
+
+    // var points = [
+    //   {lat: 49.23232, lng: -123.1003, label: 'a', data: {name:'john', age:33, city:'vancouver'}},
+    //   {lat: 49.27232, lng: -123.1193, label: 'b'}
+    // ];
+
+
 
     const infoWindow = new google.maps.InfoWindow({
       content: ''
@@ -48,7 +60,7 @@ class Map extends Component {
 
       google.maps.event.addListener(marker, 'click', function() {
         //this has the point and its a marker
-        infoWindow.setContent('<div style="color:red">this is a point ' + '<b>'+ this.label + '</b>'+ '</br>Name:'+this.data.name+'</div>');
+        infoWindow.setContent('<div style="color:blue">'+this.data.name+'<br>'+this.data.job_title+'</div>');
         infoWindow.open(map, this);
       });
     });

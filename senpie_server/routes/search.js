@@ -21,8 +21,11 @@ module.exports = (knex) => {
   const queryHelper = require('../../db/query-helper')(knex);
 
   router.get('/:query', (req, res) => {
-    const query = req.params.query;
 
+
+    const query = req.params.query;
+    console.log('in get search/');
+    console.log('query is ',query);
     const ids = [];
     searching(query).then(ress => {
       ress.hits.hits.forEach(ele => {

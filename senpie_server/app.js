@@ -8,6 +8,7 @@ const path = require('path');
 // const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const SocketServer = require('ws').Server;
 
 // importing all router files
 const index = require('./routes/index');
@@ -21,10 +22,6 @@ const knexConfig    = require('../knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
 // const knexLogger    = require('knex-logger');
 
-
-const seedRoute = require('./routes/seed');
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -37,18 +34,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());  // Cross-Origin Resource Sharing
-app.use(cookieSession({
-  name: 'session',
-  keys: ['apple', 'orange']
-}));
 
 // app.use(knexLogger(knex));
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/search', search);
-
-app.use('/seed', seedRoute(knex));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,8 +59,43 @@ app.use(function(err, req, res) {
   res.render('error');
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
+});
+
+const wss = new SocketServer({ server });
+
+var outGoingMsg;
+wss.on('connection', (ws) => {
+  console.log('there\' 1 connection');
+  ws.on('message', (msg) => {
+    const message = JSON.parse(msg);
+    console.log('a message is recieved');
+    console.log('message is ', message);
+    console.log('message.type is', message.type);
+    switch (message.type) {
+      case 'connect':
+        console.log('recieved a connect message');
+        outGoingMsg = 'connected';
+        break;
+      case 'accept':
+        outGoingMsg = 'accepted';
+        break;
+      case 'reject':
+        outGoingMsg = 'rejected';
+        break;
+    }
+    wss.clients.forEach(function each(client) {
+      console.log('sending message to client');
+      client.send(('hi'));
+    });
+  });
+
+  ws.on('close', () => {
+    wss.clients.forEach(function each(client) {
+      console.log('a connection was closed');
+    });
+  });
 });
 
 module.exports = app;

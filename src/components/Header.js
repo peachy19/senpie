@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Link,
   HashRouter as Router,
 } from 'react-router-dom'
 
@@ -14,7 +15,7 @@ const Header = () => (
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            Senpie
+            <Link to="/">Senpie</Link>
           </div>{/*Navbar Header*/}
           <nav className="collapse navbar-collapse" id="bs-navbar">
             <button type="button" className="btn btn-default navbar-btn navbar-right">LOG IN</button>

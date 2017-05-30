@@ -5,7 +5,7 @@ class Mentor extends Component {
   render() {
     const panelStyle = {
       height: '100px',
-      width: '100%',
+      width: '70%',
       margin: '50px'
     }
     const divStyle = {

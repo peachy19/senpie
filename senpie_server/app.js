@@ -1,19 +1,17 @@
 require('dotenv').config();
 
-const PORT  = process.env.PORT || 8080;
+const PORT  = process.env.PORT || 8000;
 const ENV   = process.env.ENV || 'development';
 
 const express = require('express');
 const path = require('path');
 // const favicon = require('serve-favicon');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-// importing all router files
 const index = require('./routes/index');
 const users = require('./routes/users');
-const search = require('./routes/search');
-const cors = require('cors');
 
 const app = express();
 
@@ -21,9 +19,8 @@ const knexConfig    = require('../knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
 // const knexLogger    = require('knex-logger');
 
-
-const seedRoute = require('./routes/seed');
-
+const CORS = require('cors');
+const searchRoute = require('./routes/search');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,21 +31,15 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());  // Cross-Origin Resource Sharing
-app.use(cookieSession({
-  name: 'session',
-  keys: ['apple', 'orange']
-}));
 
 // app.use(knexLogger(knex));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/search', search);
 
-app.use('/seed', seedRoute(knex));
+app.use('/search', searchRoute(knex, CORS));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

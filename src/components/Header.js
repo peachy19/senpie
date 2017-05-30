@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
+  Link,
   HashRouter as Router,
 } from 'react-router-dom'
 import { userLogIn, mentorLogin } from '../actions/userLogIn.js';
-
-console.log('loggin user log in', userLogIn);
 
 const logInProtege = ( e ) => {
   e.preventDefault();

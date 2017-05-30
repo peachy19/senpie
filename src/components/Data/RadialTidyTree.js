@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class RadialTidyTree extends Component {
   componentDidMount() {
-    var svg = d3.select('svg'),
+    var svg = d3.select('#radial svg'),
         width = +svg.attr('width'),
         height = +svg.attr('height'),
         g = svg.append('g').attr('transform', 'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')');

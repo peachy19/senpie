@@ -49,7 +49,6 @@ let buffer = 'id,value,\nmentor,\n';
 parseCSV(map);
 reformatCSV();
 writeNewCSV();
-console.log(buffer);
 
 function parseCSV(map) {
   mentorList.forEach(ele => {
@@ -87,7 +86,7 @@ function parseCSV(map) {
 }
 
 function writeNewCSV() {
-  fs.writeFile('./mentor.csv', buffer, err => {
+  fs.writeFile('../build/mentor.csv', buffer, err => {
     if(err) {
       console.log(err);
     } else {

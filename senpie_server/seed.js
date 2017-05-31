@@ -35,7 +35,7 @@ const log = console.log.bind(console);
 // const path = require('path');
 // path.resolve(__dirname, './synonym.txt')
 
-function randYear(start, end) {
+function randNum(start, end) {
   return start + Math.floor(Math.random() * (end - start));
 }
 
@@ -54,7 +54,7 @@ function randLanguages() {
   }
 
   set.forEach(s => {
-    array += s + ' 'q;
+    array += s + ' ';
   })
 
   return array;
@@ -71,7 +71,7 @@ function generateDescription(name, year, title, company, degree) {
 
 function fakerF() {
   let name = faker.name.findName();
-  const gradYear = randYear(start, end);
+  const gradYear = randNum(start, end);
   const title = randAry(titles);
   const companyName = randAry(companyList);
   const degree = randAry(degrees);
@@ -85,7 +85,7 @@ function fakerF() {
     gradYear: gradYear,
     companyName: companyName,
     companyType: randAry(companyType),
-    size: randYear(200000, 1000),
+    size: randNum(200000, 1000),
     title: title,
     description: generateDescription(name, gradYear, title, companyName, degree),
     languages: randLanguages()

@@ -20,9 +20,11 @@ module.exports = (knex) => {
   const insertHelper = require('../../db/insert-helper')(knex);
   const queryHelper = require('../../db/query-helper')(knex);
 
+  router.get('/', (req, res) => {
+    res.send('In /search');
+  });
+
   router.get('/:query', (req, res) => {
-
-
     const query = req.params.query;
     console.log('in get search/');
     console.log('query is ',query);
@@ -57,7 +59,10 @@ module.exports = (knex) => {
   }
 
 async function assembleData(queryHelper, ids, res) {
-  Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => res.json(users));
+  Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => {
+    console.log(users);
+    res.json(users);
+  });
 }
 
 async function searching(query) {

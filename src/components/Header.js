@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
+  Link,
   HashRouter as Router,
 } from 'react-router-dom'
 import { userLogIn, mentorLogin } from '../actions/userLogIn.js';
@@ -11,7 +12,7 @@ const logInProtege = ( e ) => {
 
 const mapStateToProps = (state) => {
   return {
-    id: 'temp'
+    currentUser: state.userLogIn
   }
 }
 
@@ -71,8 +72,8 @@ export default class Header extends Component {
                 Senpie
               </div>{/*Navbar Header*/}
               <nav className="collapse navbar-collapse" id="bs-navbar">
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>LOG IN</button>
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>SIGN UP</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>STUDENT LOG IN</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>MENTOR LOG IN</button>
               </nav>
             </div>{/*Container Fluid*/}
           </nav>

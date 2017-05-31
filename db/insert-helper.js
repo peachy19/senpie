@@ -51,6 +51,12 @@ module.exports = function(knex) {
       return knex
       .returning('id')
       .insert({sender_id: senderId, receiver_id: receiverId, invitation_status: invitationStatus}).into('invitation');
+    },
+    insertLocation: (userId, location) => {
+      console.log('Inserting Location');
+      return knex
+      .returning('id')
+      .insert({user_id: userId, latitude: location.latitude, longitude: location.longitude}).into('location');
     }
   };
 };

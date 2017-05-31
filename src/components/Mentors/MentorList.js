@@ -4,6 +4,7 @@ import Mentor from './Mentor'
 //Container for mentor result
 const mapStateToProps = ({ mentors }) => ({mentors});
 
+
 @connect(mapStateToProps)
 export default class MentorList extends Component {
   render() {
@@ -14,8 +15,8 @@ export default class MentorList extends Component {
       {
         this.props.mentors.map(mentor => (
           <Mentor
-            key={this.props.mentors.indexOf(mentor)}
-            id={this.props.mentors.indexOf(mentor)}
+            key={mentor[0].id}
+            id={mentor[0].id}
             name={mentor[0].user_name}
             title={mentor[0].job_title}
           />

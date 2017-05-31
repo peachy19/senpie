@@ -56,6 +56,13 @@ module.exports = function(knex) {
       return knex
       .insert({languages: languages, user_id: id})
       .into('skill');
+    },
+    insertLocation: (userId, location) => {
+      console.log('Inserting Location');
+      return knex
+      .returning('id')
+      .insert({user_id: userId, latitude: location.latitude, longitude: location.longitude}).into('location');
+
     }
   };
 };

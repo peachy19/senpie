@@ -27,6 +27,15 @@ const mentorList = [];
 const start = 1980;
 const end = 2017;
 const NUM_USERS = 100;
+const latitude = {
+  start: 49.10,
+  end: 49.27
+};
+const longitude = {
+  start: -122.40,
+  end: -123.14
+};
+
 
 const insertTables = require('../db/insert-helper')(knex);
 
@@ -37,6 +46,17 @@ const log = console.log.bind(console);
 
 function randNum(start, end) {
   return start + Math.floor(Math.random() * (end - start));
+}
+
+function randLocation(latitude, longitude){
+  const lat = latitude.start + Math.random() * (latitude.end - latitude.start);
+  const long = longitude.start + Math.random() * (longitude.end - longitude.start);
+  const location = {
+    latitude: lat,
+    longitude: long
+  }
+  //console.log("Location is", location);
+  return location;
 }
 
 function randAry(ary) {
@@ -89,6 +109,9 @@ function fakerF() {
     title: title,
     description: generateDescription(name, gradYear, title, companyName, degree),
     languages: randLanguages()
+    size: randYear(200000, 1000),
+    title: randAry(titles),
+    location: randLocation(latitude, longitude)
   }
 
   mentorList.push(data);
@@ -126,6 +149,8 @@ async function insertUser(data) {
   await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
   await insertTables.insertCompanyDetail(user[0], company[0], title[0]);
   await insertTables.insertSkill(data.languages, user[0]);
+  const location = await insertTables.insertLocation(user[0], randLocation(latitude, longitude));
+
   const concatData = parseObject(data);
 
   console.log('concatData', concatData, user[0]);

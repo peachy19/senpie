@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SearchBar from '../HomePage/SearchBar'
 import MentorList from './MentorList'
+import MapLink from './MapLink.js'
 
 
 class Mentors extends Component {
@@ -11,6 +12,7 @@ class Mentors extends Component {
     return (
       <div style={style}>
         <SearchBar />
+        <MapLink />
         <MentorList />
       </div>
     )

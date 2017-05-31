@@ -3,7 +3,7 @@ module.exports = function(knex) {
     getUser: (id) => {
       console.log('Getting user with id', id);
       return knex.select('users.name as user_name', 'users.id','grad_year', 'company.type_of_company',
-        'company.name as company_name', 'title.name as job_title', 'skill.languages', 'users.description')
+      'company.name as company_name', 'title.name as job_title', 'skill.languages', 'users.description', 'location.latitude as latitude', 'location.longitude as longitude')
       .from('users')
       .join('user_type', 'user_type.id', '=', 'users.user_type_id')
       .join('skill', 'skill.user_id', '=', 'users.id')
@@ -12,6 +12,7 @@ module.exports = function(knex) {
       .join('company_detail', 'company_detail.user_id', '=', 'users.id')
       .join('company', 'company.id', '=', 'company_detail.company_id')
       .join('title', 'title.id', '=', 'company_detail.title_id')
+      .join('location', 'location.user_id', '=', 'users.id')
       .where('users.id', '=', id);
     },
     getDegreeName: (id) => {

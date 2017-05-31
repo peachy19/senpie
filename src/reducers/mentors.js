@@ -7,6 +7,7 @@ export const mentors = (state=[], action)=> {
       console.log('handle results', action.payload);
       return action.payload;
     }
+    break;
   }
   return state;
 };

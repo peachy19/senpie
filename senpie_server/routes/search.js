@@ -24,6 +24,7 @@ module.exports = (knex) => {
   });
 
   router.get('/:query', (req, res) => {
+    console.log("I am in search route");
     const query = req.params.query;
 
     const ids = [];

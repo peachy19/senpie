@@ -109,7 +109,7 @@ function fakerF() {
     title: title,
     description: generateDescription(name, gradYear, title, companyName, degree),
     languages: randLanguages(),
-    size: randYear(200000, 1000),
+    size: randNum(200000, 1000),
     title: randAry(titles),
     location: randLocation(latitude, longitude)
   }
@@ -128,9 +128,6 @@ for (let i = 0; i < NUM_USERS; i++) {
 }
 
 initializeES();
-
-
-
 
 for (let i = 0; i < mentorList.length; i++) {
   insertUser(mentorList[i]).then(() => {
@@ -157,7 +154,6 @@ async function insertUser(data) {
   await addToIndex(concatData, user[0]);
 }
 
-
 function parseObject(data){
   let str = '';
   const ary = [];
@@ -172,15 +168,11 @@ function parseObject(data){
   return ary;
 }
 
-
-
 async function initializeES() {
   await dropIndex();
   await dropDocIndex();
   await createIndex();
 }
-
-
 
 function dropIndex() {
   console.log('in dropIndex()');

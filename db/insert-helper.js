@@ -2,7 +2,6 @@
 // module.exports = function()...
 module.exports = function(knex) {
   return {
-
     insertUser: (name, email, type_id, description, passWord) => {
       console.log('Inserting into users');
       return knex.returning('id')

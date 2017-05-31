@@ -3,11 +3,10 @@
 module.exports = function(knex) {
   return {
 
-    insertUser: (name, email, type_id, passWord) => {
+    insertUser: (name, email, type_id, description, passWord) => {
       console.log('Inserting into users');
       return knex.returning('id')
-      .insert({name: name, email: email, user_type_id: type_id, hs_pswd: passWord})
-
+      .insert({name: name, email: email, description: description, user_type_id: type_id, hs_pswd: passWord})
       .into('users');
     },
     insertUserType: (type) => {
@@ -52,13 +51,18 @@ module.exports = function(knex) {
       .returning('id')
       .insert({sender_id: senderId, receiver_id: receiverId, response_id: responseId}).into('invitation');
     },
+    insertSkill: (languages, id) => {
+      console.log('Inserting languages: ', languages);
+      return knex
+      .insert({languages: languages, user_id: id})
+      .into('skill');
+    },
     insertLocation: (userId, location) => {
       console.log('Inserting Location');
       return knex
       .returning('id')
       .insert({user_id: userId, latitude: location.latitude, longitude: location.longitude}).into('location');
+
     }
   };
 };
-
-

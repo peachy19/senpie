@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProfileHead from './ProfileHead';
+import Header from '../Header'
 import Skills from './Skills';
 import Experience from './Experience';
 import Education from './Education';
+import Description from './Description';
 
 const mapStateToProps = ({mentors}, ownProps) => {
   const { id } = ownProps.match.params;
@@ -20,12 +22,16 @@ class Profile extends Component {
     const user = this.props.mentors[this.props.id];
     return (
       <div>
+        <Header
+        style={{backgroundImage: 'url('+'../images/navbar-background.jpg'+')'}}/>
         <ProfileHead
           name={user[0].user_name}
           title={user[0].job_title}
         />
+        <Description />
         <Experience
           experience={user[0].company_name}/>
+        <Skills />
         <Education
           education={user[0].grad_year}/>
       </div>

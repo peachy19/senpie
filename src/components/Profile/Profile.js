@@ -28,10 +28,13 @@ class Profile extends Component {
           name={user[0].user_name}
           title={user[0].job_title}
         />
-        <Description />
+        <Description
+          description={user[0].description}/>
         <Experience
+          title = {user[0].job_title}
           experience={user[0].company_name}/>
-        <Skills />
+        <Skills
+        skills={user[0].languages}/>
         <Education
           education={user[0].grad_year}/>
       </div>

@@ -7,6 +7,7 @@
   left: 0;
   right:0;
   margin-bottom: 0px;
+  z-index: 100;
   .container-fluid {
     .navbar-header {
       font-size: 2em;
@@ -130,6 +131,14 @@ input.btn {
     padding-right: 100px;
     margin-top: 50px;
   }
+  .connect-btn{
+    margin-left: 150px;
+    margin-top: 20px;
+    background-color: #dc5b5b;
+    color: #e8e8e8;
+    border-width: 0px;
+    border-radius: 15px;
+  }
 }
 
 .panel-default {
@@ -143,5 +152,19 @@ input.btn {
     background-color: #49727D;
     color: #fff;
     font-size: 1.2em;
+  }
+}
+
+.Result {
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+  span {
+    float:left;
+  }
+  a {
+    float:right;
   }
 }

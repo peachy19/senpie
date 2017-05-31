@@ -5,7 +5,7 @@ class Experience extends Component{
     return (
       <div className="panel panel-default">
         <div className="panel-heading">About me</div>
-        <div className="panel-body">Junior dev with degree in ECE. Passionate learner, hardworking, loves to write beautiful and clean code</div>
+        <div className="panel-body">{this.props.description}</div>
       </div>
     )
   }

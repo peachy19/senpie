@@ -1,8 +1,37 @@
+
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import {
   Link,
   HashRouter as Router,
 } from 'react-router-dom'
+
+import { userLogIn, mentorLogin } from '../actions/userLogIn.js';
+
+const logInProtege = ( e ) => {
+  e.preventDefault();
+}
+
+const mapStateToProps = (state) => {
+  return {
+    id: 'temp'
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    studentLogIn : (e) => {
+      console.log('student logged in');
+      e.preventDefault;
+      dispatch(userLogIn(1));
+    },
+    mentorLogin  : (e) => {
+      console.log('mentor logged in');
+      e.preventDefault;
+      dispatch(userLogIn(2));
+    }
+  }
+}
 
 class Header extends Component {
  render() {
@@ -19,10 +48,13 @@ class Header extends Component {
               </button>
               <Link to="/">Senpie</Link>
             </div>{/*Navbar Header*/}
-            <p className="navbar-text data"><a href="/#/data" className="navbar-link">Data</a></p>
+
             <nav className="collapse navbar-collapse" id="bs-navbar">
-              <button type="button" className="btn btn-default navbar-btn navbar-right">Login</button>
-              <button type="button" className="btn btn-default navbar-btn navbar-right">Sign up</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>Login</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>Sign up</button>
+                <p className="navbar-text navbar-right data"><a href="/#/data" className="navbar-link">Data</a></p>
+                <p className="navbar-text navbar-right about"><a href="/#/" className="navbar-link">About</a></p>
+
             </nav>
           </div>{/*Container Fluid*/}
         </nav>

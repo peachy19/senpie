@@ -8,6 +8,7 @@ export const searchbar = (state={}, action)=> {
         text: query
       }
     }
+    default:
+      return state;
   }
-  return state;
-};
+}

@@ -12,7 +12,7 @@ const logInProtege = ( e ) => {
 
 const mapStateToProps = (state) => {
   return {
-    id: 'temp'
+    currentUser: state.userLogIn
   }
 }
 
@@ -33,6 +33,30 @@ const mapDispatchToProps = (dispatch) => {
 
 @connect(mapStateToProps,mapDispatchToProps)
 export default class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+ // sendMessage = (event) => {
+ //    console.log('send message button was pressed');
+ //    event.preventDefault;
+ //    var data = {};
+ //    data.type = 'connect';
+ //    this.socket.send(JSON.stringify(data));
+ //  }
+
+ //  componentDidMount() {
+ //    const websocket = new WebSocket("ws://127.0.0.1:8080");
+ //    this.socket = websocket;
+ //    this.socket.onopen = () => console.log('socket is connected');
+ //    console.log("componentDidMount")
+ //    this.socket.onmessage = (data) => {
+ //      console.log('a message is recieved on the client side');
+ //      let msg = JSON.parse(event.data);
+ //      console.log(msg);
+ //    }
+ //  }
+
   render() {
     return (
       <Router>
@@ -48,8 +72,8 @@ export default class Header extends Component {
                 Senpie
               </div>{/*Navbar Header*/}
               <nav className="collapse navbar-collapse" id="bs-navbar">
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>LOG IN</button>
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>SIGN UP</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>STUDENT LOG IN</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>MENTOR LOG IN</button>
               </nav>
             </div>{/*Container Fluid*/}
           </nav>

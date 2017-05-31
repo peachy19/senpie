@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   e.preventDefault();
+  console.log('a search is fired from client');
   const query = document.getElementById('myText').value;
   const style = {
     marginTop: '40px'

@@ -7,11 +7,6 @@ export const userLogIn = (state={}, action)=> {
         id: action.payload
       }
       break;
-    case MENTOR_LOG_IN:
-      return {
-        id: action.payload
-      }
-      break;
     default:
       return state;
   }

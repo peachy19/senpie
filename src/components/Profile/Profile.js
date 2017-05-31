@@ -7,36 +7,45 @@ import Experience from './Experience';
 import Education from './Education';
 import Description from './Description';
 
-const mapStateToProps = ({mentors}, ownProps) => {
+const mapStateToProps = ({mentors, userLogIn}, ownProps) => {
   const { id } = ownProps.match.params;
+  const currentUser = userLogIn.id
   return {
     mentors,
-    id
+    id,
+    currentUser
   }
-
 };
+
 
 @connect(mapStateToProps)
 class Profile extends Component {
   render() {
-    const user = this.props.mentors[this.props.id];
+    console.log("logged in user is", this.props.currentUser);
+    let user = {};
+    this.props.mentors.forEach((mentor) => {
+      if(mentor[0].id == this.props.id){
+        user = mentor[0];
+      }
+    })
     return (
       <div>
         <Header
         style={{backgroundImage: 'url('+'../images/navbar-background.jpg'+')'}}/>
         <ProfileHead
-          name={user[0].user_name}
-          title={user[0].job_title}
-        />
+          name={user.user_name}
+          title={user.job_title}
+          id={this.props.id}
+          currentUser={this.props.currentUser}/>
         <Description
-          description={user[0].description}/>
+          description={user.description}/>
         <Experience
-          title = {user[0].job_title}
-          experience={user[0].company_name}/>
+          title = {user.job_title}
+          experience={user.company_name}/>
         <Skills
-        skills={user[0].languages}/>
+          skills={user.languages}/>
         <Education
-          education={user[0].grad_year}/>
+          education={user.grad_year}/>
       </div>
     )
   }

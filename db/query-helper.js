@@ -3,10 +3,10 @@ module.exports = function(knex) {
     getUser: (id) => {
       console.log('Getting user with id', id);
       return knex.select('users.name as user_name', 'users.id','grad_year', 'company.type_of_company',
-        'company.name as company_name', 'title.name as job_title')
-
+        'company.name as company_name', 'title.name as job_title', 'skill.languages', 'users.description')
       .from('users')
       .join('user_type', 'user_type.id', '=', 'users.user_type_id')
+      .join('skill', 'skill.user_id', '=', 'users.id')
       .join('education_detail', 'education_detail.user_id', '=', 'users.id')
       .join('education_degree', 'education_degree.id', '=','education_detail.education_degree_id')
       .join('company_detail', 'company_detail.user_id', '=', 'users.id')

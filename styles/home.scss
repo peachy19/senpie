@@ -1,7 +1,11 @@
 
 .navbar.navbar-default {
-  border: 15px solid #5F7080;
-  background-color: #5F7080;
+  position: fixed;
+  background: transparent;
+  border-width: 0px;
+  top: 0;
+  left: 0;
+  right:0;
   margin-bottom: 0px;
   .container-fluid {
     .navbar-header {
@@ -10,9 +14,17 @@
       font-style: bold;
       line-height: 60px;
     }
+    .data {
+      font-size: 1.5em;
+      a {
+      color: #e8e8e8;
+      };
+    }
     button {
       margin:13px;
-      background-color: #d3d3d3;
+      background-color: transparent;
+      border-width: 0px;
+      color: #fff;
     }
     .navbar-text.navbar-right{
       margin-right: 16px;
@@ -25,20 +37,42 @@
   }
 }
 
-form {
-  display: flex;
-  margin-top: 300px
+.col-lg-3 {
+  width:33%;
 }
 
+.tagline{
+  color: #fff;
+  text-align: center;
+  position:absolute;
+  margin: 385px auto;
+  width: inherit;
+
+}
+
+form {
+  display: flex;
+  margin-top: 478px;
+  width: 600px;
+}
+
+input.form-control {
+  height: 36px;
+  border-radius: 48px;
+}
 input.form-control, input.btn {
-    height: 60px;
     font-size: 18px;
     font-weight: 300;
 }
 
 input.btn {
-  background-color: #5F7080;
-  color: #e8e8e8
+  background-color: #dc5b5b;
+  border-radius: 100px;
+  border-width: 0px;
+  color: #e8e8e8;
+  height: 50px;
+  margin-left: 10px;
+  margin-top: -5px;
 }
 .node circle {
   fill: #999;
@@ -61,4 +95,53 @@ input.btn {
   stroke: #555;
   stroke-opacity: 0.4;
   stroke-width: 1.5px;
+}
+
+.mentorList {
+  margin-left: 20%;
+  .mentor {
+    height: 100px;
+    width: 70%;
+    margin: 40px;
+    border-radius: 100px;
+    color: #326E95;
+    border-color: #ABC2C6;
+    &:hover {
+    border-color: #dc5b5b;
+    }
+  }
+}
+
+.profilehead {
+    margin-top: 100px;
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+  .img-circle {
+    float: left;
+    border: 2px solid #ABC2C6;
+    padding: 10px;
+    margin-left: 30px;
+  }
+  .name{
+    font-size: 3em;
+    float:right;
+    padding-right: 100px;
+    margin-top: 50px;
+  }
+}
+
+.panel-default {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  .panel-heading {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #49727D;
+    color: #fff;
+    font-size: 1.2em;
+  }
 }

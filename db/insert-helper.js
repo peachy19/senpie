@@ -44,11 +44,11 @@ module.exports = function(knex) {
       .returning('id')
       .insert({name: name}).into('title');
     },
-    insertInvitation: (senderId, receiverId, responseId) => {
+    insertInvitation: (senderId, receiverId, invitationStatus) => {
       console.log('Inserting invitation');
       return knex
       .returning('id')
-      .insert({sender_id: senderId, receiver_id: receiverId, response_id: responseId}).into('invitation');
+      .insert({sender_id: senderId, receiver_id: receiverId, invitation_status: invitationStatus}).into('invitation');
     },
     insertSkill: (languages, id) => {
       console.log('Inserting languages: ', languages);

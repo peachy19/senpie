@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchBar from '../HomePage/SearchBar'
 import MentorList from './MentorList'
 import MapLink from './MapLink.js'
+import Header from '../Header'
 
 
 class Mentors extends Component {
@@ -11,7 +12,9 @@ class Mentors extends Component {
     }
     return (
       <div style={style}>
-        <SearchBar />
+        <Header
+        style={{backgroundImage: 'url('+'../images/navbar-background.jpg'+')'}}/>
+        <SearchBar style={{ marginTop: '100px'}} />
         <MapLink />
         <MentorList />
       </div>

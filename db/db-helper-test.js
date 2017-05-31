@@ -1,7 +1,10 @@
-const dbHelper = require('./db-helper.js')
+const ENV   = process.env.ENV || 'development';
+const knexConfig    = require('../knexfile');
+const knex          = require('knex')(knexConfig[ENV]);
+const queryHelper = require('./insert-helper.js')
 
-const dbResult = dbHelper();
+const query = queryHelper(knex);
 
-dbResult.then((res) => {
-  console.log(res[0].id);
-})
+query.insertInvitation(2,200,'pending').then(res => {
+  console.log(res);
+});

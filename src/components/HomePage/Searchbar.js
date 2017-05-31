@@ -20,10 +20,10 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
   window.location = '#/mentors'
   const query = document.getElementById('myText').value;
   const style = {
-    marginTop: '40px'
+    marginTop: '100px'
   }
-  dispatch(updateSearchbar(query, style));
-  console.log("I am in dispatch search");
+  dispatch(updateSearchbar(query));
+  console.log('I am in dispatch search');
   axios.get(`http://localhost:8000/search/${query}`)
     .then(function(response) {
       console.log('Response is', response);
@@ -35,21 +35,14 @@ const dispatchSearchAndGetResults = (e)  => (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SearchBar extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.handleChange = this.handleChange.bind(this);
-  // }
-  // handleChange(event){
-  //   this.setState({this.props.searchbar.text: event.target.value});
-  // }
   render() {
     return (
     <div>
       <div className="col-lg-3"></div>
       <div className="col-lg-6">
-        <form onSubmit={this.props.dispatchSearchAndGetResults} style = {this.props.searchbar.style}>
-          <input type="text" id='myText' className='form-control' placeholder={this.props.searchbar.text} onChange={this.handleChange}></input>
-          <input type="submit" value="Search" className="btn btn-default"></input>
+        <form onSubmit={this.props.dispatchSearchAndGetResults} style={this.props.style}>
+          <input type="text" id='myText' className='form-control' defaultValue={this.props.searchbar.text} />
+          <input type="submit" value="GO" className="btn btn-default"/>
         </form>
         </div>
       </div>

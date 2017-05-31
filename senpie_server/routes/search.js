@@ -16,6 +16,10 @@ const client = new elasticsearch.Client({
 
 const log = console.log.bind(console);
 
+function randNum(start, end) {
+  return start + Math.floor(Math.random() * (end - start));
+}
+
 module.exports = (knex) => {
   const queryHelper = require('../../db/query-helper')(knex);
 
@@ -25,14 +29,24 @@ module.exports = (knex) => {
 
   router.get('/:query', (req, res) => {
     const query = req.params.query;
-    console.log('in get search/');
-    console.log('query is ',query);
     const ids = [];
-    searching(query).then(ress => {
-      ress.hits.hits.forEach(ele => {
-        ids.push(ele._id);
-      });
+    const numUsers = 5;
+
+    searching(query).then(results => {
+
+      if (results.hits.hits.length === 0) {
+        console.log('no direct hits');
+        for (let i = 0; i < numUsers; i++) {
+          ids.push(randNum(0, 100));
+        }
+      } else {
+        results.hits.hits.forEach(ele => {
+          ids.push(ele._id);
+        });
+      }
+
       assembleData(queryHelper, ids, res);
+
     });
   });
 
@@ -41,7 +55,7 @@ module.exports = (knex) => {
 
 async function assembleData(queryHelper, ids, res) {
   Promise.all(ids.map(id => queryHelper.getUser(id))).then(users => {
-    console.log(users);
+    console.log('length users', users.length);
     res.json(users);
   });
 }

@@ -6,6 +6,7 @@ const knexConfig    = require('../knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
 const fs = require('fs');
 const faker = require('faker');
+const synonyms = require('./synonyms');
 
 // elasticsearch config
 const index = 'user';
@@ -109,9 +110,8 @@ function fakerF() {
     title: title,
     description: generateDescription(name, gradYear, title, companyName, degree),
     languages: randLanguages(),
-    size: randNum(200000, 1000),
-    title: randAry(titles),
-    location: randLocation(latitude, longitude)
+    location: randLocation(latitude, longitude),
+    synon: synonyms(companyName, degree)
   }
 
   mentorList.push(data);
@@ -224,7 +224,6 @@ function createIndex() {
                 'Steve Jobs => Apple',
                 'hardware => Intel, Apple',
                 'unicorn => Snap, Uber, Airbnb',
-                'bad reputation => Amazon, Uber',
                 'teaching => Khan Academy',
                 'breakout list => Uber, Airbnb, Hyperloop One, SpaceX',
                 'automobile, car => Tesla'

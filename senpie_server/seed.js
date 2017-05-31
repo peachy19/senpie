@@ -108,7 +108,7 @@ function fakerF() {
     size: randNum(200000, 1000),
     title: title,
     description: generateDescription(name, gradYear, title, companyName, degree),
-    languages: randLanguages()
+    languages: randLanguages(),
     size: randYear(200000, 1000),
     title: randAry(titles),
     location: randLocation(latitude, longitude)

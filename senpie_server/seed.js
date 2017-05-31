@@ -21,14 +21,19 @@ const userTypes = ['mentor', 'user'];
 const degrees = ['BSc', 'MSc', 'BASC', 'MENG', 'PhD'];
 const companyType = ['tech'];
 const titles = ['Software Engineer', 'Software Developer', 'Junior Software Developer', 'QA engineer', 'Software Engineer in Test', 'Senior Software Engineer', 'Intermediate Software Engineer', 'Programmer', 'QA Analyst'];
+const languages = ['C', 'C#', 'C++', 'Assembly', 'Python', 'Java', 'Haskell', 'Javascript', 'PHP', 'ruby', 'SQL', 'Rust', 'R', 'Swift', 'Julia', 'Miranda'];
 const companyList = [];
 const mentorList = [];
 const start = 1980;
 const end = 2017;
+const NUM_USERS = 100;
 
 const insertTables = require('../db/insert-helper')(knex);
 
 const log = console.log.bind(console);
+
+// const path = require('path');
+// path.resolve(__dirname, './synonym.txt')
 
 function randYear(start, end) {
   return start + Math.floor(Math.random() * (end - start));
@@ -38,17 +43,52 @@ function randAry(ary) {
   return ary[Math.floor(Math.random() * ary.length)];
 }
 
+function randLanguages() {
+  let set = new Set();
+  const num = Math.floor(Math.random() * 10);
+  let array = '';
+
+  for (let i = 0; i < num; i++) {
+    const index = Math.floor(Math.random() * languages.length);
+    set.add(languages[index]);
+  }
+
+  set.forEach(s => {
+    array += s + ' 'q;
+  })
+
+  return array;
+}
+
+function generateDescription(name, year, title, company, degree) {
+  const experience = end - year;
+  const str = `Hi, my name is ${name}. I'm a ${title} at ${company}. I graduated with
+  a ${degree} degree. I have ${experience} years of experience, love mentoring, and
+  is looking to make the world a better place`;
+
+  return str;
+}
+
 function fakerF() {
+  let name = faker.name.findName();
+  const gradYear = randYear(start, end);
+  const title = randAry(titles);
+  const companyName = randAry(companyList);
+  const degree = randAry(degrees);
+  name = name.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister/g, '');
+
   const data = {
-    name: faker.name.findName(),
+    name: name,
     userType: randAry(userTypes),
     email: faker.internet.email(),
-    educationDegree: randAry(degrees),
-    gradYear: randYear(start, end),
-    companyName: randAry(companyList),
+    educationDegree: degree,
+    gradYear: gradYear,
+    companyName: companyName,
     companyType: randAry(companyType),
     size: randYear(200000, 1000),
-    title: randAry(titles)
+    title: title,
+    description: generateDescription(name, gradYear, title, companyName, degree),
+    languages: randLanguages()
   }
 
   mentorList.push(data);
@@ -60,43 +100,41 @@ for (let i = 0; i < res.length; i++) {
   companyList.push(res[i].trim());
 }
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < NUM_USERS; i++) {
   fakerF();
 }
 
 initializeES();
 
+
+
+
 for (let i = 0; i < mentorList.length; i++) {
-  insertUser(mentorList[i]).then((result) => {
+  insertUser(mentorList[i]).then(() => {
 
   }).catch(err => {
     console.error(err);
   })
 }
 
-async function initializeES() {
-  await dropIndex();
-  await dropDocIndex();
-  await createIndex();
-}
-
 async function insertUser(data) {
   const userType = await insertTables.insertUserType(data.userType);
-  const user = await insertTables.insertUser(data.name, data.email, userType[0], 123);
+  const user = await insertTables.insertUser(data.name, data.email, userType[0], data.description, 123);
   const educationDegree = await insertTables.insertEducationDegree(data.educationDegree);
   const title = await insertTables.insertTitle(data.title);
   const company = await insertTables.insertCompany(data.companyName, data.companyType, data.size);
-  const educationDetail = await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
-  const companyDetail = await insertTables.insertCompanyDetail(user[0], company[0], title[0]);
-
+  await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
+  await insertTables.insertCompanyDetail(user[0], company[0], title[0]);
+  await insertTables.insertSkill(data.languages, user[0]);
   const concatData = parseObject(data);
+
   console.log('concatData', concatData, user[0]);
   await addToIndex(concatData, user[0]);
 }
 
 
 function parseObject(data){
-  let str = "";
+  let str = '';
   const ary = [];
 
   for (let property in data) {
@@ -108,6 +146,16 @@ function parseObject(data){
   ary.push(str);
   return ary;
 }
+
+
+
+async function initializeES() {
+  await dropIndex();
+  await dropDocIndex();
+  await createIndex();
+}
+
+
 
 function dropIndex() {
   console.log('in dropIndex()');
@@ -145,19 +193,39 @@ function createIndex() {
       settings: {
         analysis: {
           filter: {
-            filter_snowball_en: {
-              type: "snowball",
-              language: "English"
+            // filter_snowball_en: {
+            //   type: 'snowball',
+            //   language: 'English'
+            // },
+            synonym: {
+              type: 'synonym',
+              // synonyms_path: './synonym.txt'
+              synonyms: [
+                'big 4 => Google, Facebook, Amazon, Microsoft',
+                'government => NASA',
+                'space => NASA, SpaceX',
+                'Steve Jobs => Apple',
+                'hardware => Intel, Apple',
+                'unicorn => Snap, Uber, Airbnb',
+                'bad reputation => Amazon, Uber',
+                'teaching => Khan Academy',
+                'breakout list => Uber, Airbnb, Hyperloop One, SpaceX',
+                'automobile, car => Tesla'
+              ]
             }
           },
           analyzer: {
-            text_body_analyzer: {
-              filter: [
-                "lowercase",
-                "filter_snowball_en"
-              ],
-              type: "custom",
-              tokenizer: "standard"
+            // text_body_analyzer: {
+            //   filter: [
+            //     'lowercase',
+            //     'filter_snowball_en'
+            //   ],
+            //   type: 'custom',
+            //   tokenizer: 'standard'
+            // },
+            synonym: {
+              tokenizer: 'whitespace',
+              filter: ['synonym']
             }
           }
         }

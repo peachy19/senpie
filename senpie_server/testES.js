@@ -2,18 +2,21 @@ const elasticsearch = require('elasticsearch');
 
 const log = console.log.bind(console);
 
+const path = require('path');
+path.resolve(__dirname, './synonym.txt')
+
 const index = 'test';
 const type = 'tweet';
 const prop = 'content';
 const contents = [
   'This is the beginning of the story.',
-  'Stories are good, yeah? I like stories',
-  'Then the middle comes.',
-  'Next, and finally, the end arrives.',
+  'Stories are Amazon apple good, yeah? I like stories',
+  'Then the middle apple comes.',
+  'Next, and finally, the Intel end arrives.',
   'That\'s the end of the story.',
-  'To be continued...'
+  'To be continued...Google'
 ];
-const query = 'beginning of story';
+const query = 'big 4';
 
 const client = new elasticsearch.Client({
   host: 'localhost:9200',
@@ -43,18 +46,26 @@ function createIndex() {
         analysis: {
           filter: {
             filter_snowball_en: {
-              type: "snowball",
-              language: "English"
+              type: 'snowball',
+              language: 'English'
+            },
+            synonym: {
+              type: 'synonym',
+              synonyms_path: './synonym.txt'
             }
           },
           analyzer: {
             text_body_analyzer: {
               filter: [
-                "lowercase",
-                "filter_snowball_en"
+                'lowercase',
+                'filter_snowball_en'
               ],
-              type: "custom",
-              tokenizer: "standard"
+              type: 'custom',
+              tokenizer: 'standard'
+            },
+            synonym: {
+              tokenizer: 'whitespace',
+              filter: ['synonym']
             }
           }
         }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Header from '../Header.js'
 
 
 const mapStateToProps = ({userLogIn}) => {
@@ -55,11 +56,18 @@ class MentorDashboard extends Component {
   }
 
   render() {
+    const divStyle = {
+      marginTop: '70px'
+    }
     return (
-      <div className="panel panel-default">
-        <div className="panel-body text-center">
-          <button onClick={this.changeStatus} className="btn btn-default">{this.state.connectiontStatus}</button>
-          <label> {this.state.requestMessage} </label>
+      <div>
+        <Header
+        style={{backgroundImage: 'url('+'../images/navbar-background.jpg'+')'}}/>
+        <div className="panel panel-default" style={divStyle}>
+          <div className="panel-body text-center">
+            <button onClick={this.changeStatus} className="btn btn-default">{this.state.connectiontStatus}</button>
+            <label> {this.state.requestMessage} </label>
+          </div>
         </div>
       </div>
     )

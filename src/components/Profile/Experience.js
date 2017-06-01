@@ -5,7 +5,7 @@ class Experience extends Component{
     return (
       <div className="panel panel-default">
         <div className="panel-heading">Experience</div>
-        <div className="panel-body">{this.props.experience}</div>
+        <div className="panel-body">{this.props.title} works at {this.props.experience}</div>
       </div>
     )
   }

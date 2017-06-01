@@ -4,7 +4,6 @@ space => NASA, SpaceX,
 Steve Jobs => Apple,
 hardware => Intel, Apple,
 unicorn => Snap, Uber, Airbnb,
-bad reputation => Amazon, Uber,
 teaching => Khan Academy,
 breakout list => Uber, Airbnb, Hyperloop One, SpaceX,
 automobile, car => Tesla

@@ -33,7 +33,6 @@ module.exports = (knex) => {
     const numUsers = 5;
 
     searching(query).then(results => {
-
       if (results.hits.hits.length === 0) {
         console.log('no direct hits');
         for (let i = 0; i < numUsers; i++) {
@@ -44,9 +43,7 @@ module.exports = (knex) => {
           ids.push(ele._id);
         });
       }
-
       assembleData(queryHelper, ids, res);
-
     });
   });
 

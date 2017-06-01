@@ -25,14 +25,14 @@ class MentorDashboard extends Component {
     this.socket.onopen = () => {
       console.log("this socket is open");
       var message = {};
-      message.sender = 2;
+      message.sender = this.props.currentUser;
       message.type = 'initialize';
       this.socket.send(JSON.stringify(message));
     }
     this.socket.onmessage = (msg) => {
       var message = JSON.parse(msg.data);
       console.log('Mentor recived message', message);
-      if(message.reciever === 2) {
+      if(message.reciever === this.props.currentUser) {
         console.log(`Mentor ${this.props.currentUser} recived a message`);
         console.log('message.content is ',message.content);
         this.setState({ connectiontStatus: message.content, requestMessage: message.requestMessage});

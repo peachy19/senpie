@@ -23,6 +23,10 @@ class Map extends Component {
         };
 
         console.log('2.Received userLocation ', userLocation);
+        // var homeMarker = new google.maps.Marker ({
+        //   position: userLocation,
+        //   map:
+        // })
         infoWindow.setPosition(userLocation);
         infoWindow.setContent('Your location');
         infoWindow.open(map);
@@ -56,7 +60,7 @@ class Map extends Component {
 
         google.maps.event.addListener(marker, 'click', function() {
           //this has the point and its a marker
-          infoWindow.setContent('<div style="color:blue">'+this.data.name+'<br>'+this.data.job_title+'<br>Distance: '+this.data.distance+'</div>');
+          infoWindow.setContent('<div style="color: #49727D">'+this.data.name+'<br>'+this.data.job_title+'<br>Distance: '+this.data.distance+'</div>');
           infoWindow.open(map, this);
         });
       });
@@ -78,7 +82,7 @@ class Map extends Component {
     const divStyle = {
       width: '100%',
       height: '800px',
-      backgroundColor: 'red'
+      backgroundColor: '#49727D'
     }
       return <div id="map" ref="map" style={ divStyle}></div>
     }

@@ -51,7 +51,7 @@
 
 }
 
-form {
+.search {
   display: flex;
   margin-top: 478px;
   width: 600px;
@@ -74,6 +74,15 @@ input.btn {
   height: 50px;
   margin-left: 10px;
   margin-top: -5px;
+}
+
+#dendro {
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+#radial {
+  margin-left: 100px;
 }
 .node circle {
   fill: #999;
@@ -132,24 +141,42 @@ input.btn {
     margin-top: 50px;
   }
   .connect-btn{
-    margin-left: 150px;
+    margin-left: 55px;
     margin-top: 20px;
     background-color: #dc5b5b;
     color: #e8e8e8;
     border-width: 0px;
     border-radius: 15px;
   }
+
+  #modal-form {
+    width: 100%;
+    #myText{
+      width: 80%;
+      height: 100px;
+      margin: 0 auto;
+    }
+  }
+
+  .modal-button-send {
+  background-color: #326E95;
+    border-radius: 10px;
+  }
+  .modal-button {
+  border-radius: 10px;
+  }
 }
 
 .panel-default {
   width: 50%;
+  height: 20%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
   .panel-heading {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-color: #49727D;
+    background-color: #ABC2C6;
     color: #fff;
     font-size: 1.2em;
   }

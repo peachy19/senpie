@@ -108,7 +108,7 @@ wss.on('connection', (ws) => {
           }
           if (message.type === 'confirm request')  {
             console.log('mentor is confirming a request');
-            outGoingMsg.content = 'ACCEPTED';
+            outGoingMsg.content = 'Accepted';
             outGoingMsg.reciever = STUDENT;
             outGoingMsg.requestMessage = '';
             outGoingMsg.sender = 'SYSTEM MESSAGE';

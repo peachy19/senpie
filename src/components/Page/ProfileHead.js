@@ -25,7 +25,7 @@ class ProfileHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connectiontStatus : 'CONNECT'
+      connectiontStatus : 'New Request',
     };
   }
 
@@ -42,11 +42,14 @@ class ProfileHead extends Component {
     this.socket.onmessage = (msg) => {
       var message = JSON.parse(msg.data);
       console.log('Mentor recived message', message);
-      if(message.reciever === this.props.id) {
+      console.log('message.content is ',message.content);
+      document.getElementById("modal-message").value = message.requestMessage;
+      console.log("P text", document.getElementById("modal-message").value )
+      if(message.reciever == this.props.id){
         console.log(`Mentor ${this.props.currentUser} recived a message`);
-        console.log('message.content is ',message.content);
         this.setState({ connectiontStatus: message.content, requestMessage: message.requestMessage});
       }
+
     }
   }
   componentWillUnmount(){
@@ -69,7 +72,26 @@ class ProfileHead extends Component {
         <div className="panel-body text-center">
           <img src="../../images/sample.jpeg" className="img-circle"/>
           <p className="name">{this.props.name}</p>
-          <button onClick={this.changeStatus} className="btn btn-default connect-btn">{this.state.connectiontStatus}</button>
+          <button className="btn btn-default connect-btn" data-toggle="modal" data-target="#myModal">{this.state.connectiontStatus}</button>
+
+          <div id="myModal" className="modal fade" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 className="modal-title">New Requests</h4>
+                </div>
+                <div className="modal-body">
+                <p id="sender">Prachi sent you a connection request</p>
+                <p id="modal-message"></p>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default modal-button-close" data-dismiss="modal">Decline</button>
+                  <button onClick={this.changeStatus} type="button" className="btn btn-primary modal-button-send" data-dismiss="modal">Accept</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )

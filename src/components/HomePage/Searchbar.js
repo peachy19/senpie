@@ -41,7 +41,7 @@ export default class SearchBar extends Component {
     <div>
       <div className="col-lg-3"></div>
       <div className="col-lg-6">
-        <form onSubmit={this.props.dispatchSearchAndGetResults} style={this.props.style}>
+        <form className="search" onSubmit={this.props.dispatchSearchAndGetResults} style={this.props.style}>
           <input type="text" id='myText' className='form-control' defaultValue={this.props.searchbar.text} />
           <input type="submit" value="GO" className="btn btn-default"/>
         </form>

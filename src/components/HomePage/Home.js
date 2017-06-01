@@ -31,7 +31,7 @@ class Home extends Component {
     };
     return (
       <div className='main-container' style={divStyle}>
-        <Header />
+        <Header/>
         <Tagline />
         <SearchBar />
       </div>

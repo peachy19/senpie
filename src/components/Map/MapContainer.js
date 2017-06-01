@@ -11,7 +11,8 @@ class MapContainer extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header
+        style={{backgroundImage: 'url('+'../images/navbar-background.jpg'+')'}} />
         <Map
         mentors={this.props.mentors}/>
       </div>

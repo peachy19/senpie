@@ -67,10 +67,14 @@ class ProfileHead extends Component {
   }
 
   render() {
+     const num = Math.floor(Math.random() * (8 - 1) + 1);
+
+    console.log("Number", num);
+    const imageCat = `../../images/${num}.jpeg`
     return (
       <div className="panel panel-default profilehead">
         <div className="panel-body text-center">
-          <img src="../../images/sample.jpeg" className="img-circle"/>
+          <img src={imageCat} height="200" width="200" className="img-circle"/>
           <p className="name">{this.props.name}</p>
           <button className="btn btn-default connect-btn" data-toggle="modal" data-target="#myModal">{this.state.connectiontStatus}</button>
 

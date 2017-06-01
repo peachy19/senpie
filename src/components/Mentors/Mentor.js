@@ -19,9 +19,10 @@ class Mentor extends Component {
       marginLeft: '10px',
       float: 'left'
     }
+    console.log('key is',this.props.key);
     return (
       <Link to={`/user/${this.props.id}`} >
-      <div className="panel panel-default" style={panelStyle}>
+      <div className="panel panel-default mentor" style={panelStyle}>
         <div style={divStyle}>
           <img src="../../images/sample.jpeg" height="70" width="70" className="img-circle" style={image}/>
           <div style={info} >

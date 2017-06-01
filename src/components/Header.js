@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+
+import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import {
   Link,
   HashRouter as Router,
 } from 'react-router-dom'
+
 import { userLogIn, mentorLogin } from '../actions/userLogIn.js';
 
 const logInProtege = ( e ) => {
@@ -12,7 +14,7 @@ const logInProtege = ( e ) => {
 
 const mapStateToProps = (state) => {
   return {
-    id: 'temp'
+    currentUser: state.userLogIn
   }
 }
 
@@ -32,29 +34,35 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 @connect(mapStateToProps,mapDispatchToProps)
-export default class Header extends Component {
-  render() {
-    return (
-      <Router>
-        <div>
-          <nav className="navbar navbar-default">
-            <div className="container-fluid">
-              <div className="navbar-header">
-                <button className="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
-                Senpie
-              </div>{/*Navbar Header*/}
-              <nav className="collapse navbar-collapse" id="bs-navbar">
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>LOG IN</button>
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>SIGN UP</button>
-              </nav>
-            </div>{/*Container Fluid*/}
-          </nav>
-        </div>
-      </Router>
-      )
-  }
+class Header extends Component {
+ render() {
+  return (
+    <Router>
+      <div>
+        <nav className="navbar navbar-default" style={this.props.style}>
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button className="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <Link to="/">Senpie</Link>
+            </div>{/*Navbar Header*/}
+
+            <nav className="collapse navbar-collapse" id="bs-navbar">
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>Signout</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>Signed in as Prachi</button>
+                <p className="navbar-text navbar-right data"><a href="/#/data" className="navbar-link">Data</a></p>
+                <p className="navbar-text navbar-right about"><a href="/#/" className="navbar-link">About</a></p>
+
+            </nav>
+          </div>{/*Container Fluid*/}
+        </nav>
+      </div>
+    </Router>
+  )
 }
+}
+export default Header
+

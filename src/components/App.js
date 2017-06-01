@@ -1,14 +1,16 @@
-import React from 'react'
-import Header from './Header'
+import React, { Component } from 'react'
 import Footer from './Footer'
 import RouterBody from './RouterBody'
 
-const App = () => (
-  <div>
-    <Header/>
-    <RouterBody/>
-    <Footer/>
-  </div>
-)
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <RouterBody/>
+        <Footer/>
+      </div>
+    )
+  }
+}
 
 export default App

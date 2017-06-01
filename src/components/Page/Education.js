@@ -5,7 +5,7 @@ class Education extends Component{
     return (
       <div className="panel panel-default">
         <div className="panel-heading">Education</div>
-        <div className="panel-body">{this.props.education}</div>
+        <div className="panel-body">{this.props.degree}, {this.props.education}</div>
       </div>
     )
   }

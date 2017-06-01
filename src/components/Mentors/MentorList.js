@@ -19,6 +19,7 @@ export default class MentorList extends Component {
             id={mentor[0].id}
             name={mentor[0].user_name}
             title={mentor[0].job_title}
+            company={mentor[0].company_name}
           />
         ))
       }

@@ -81,7 +81,7 @@ class Map extends Component {
   render() {
     const divStyle = {
       width: '100%',
-      height: '800px',
+      height: '1000px',
       backgroundColor: '#49727D'
     }
       return <div id="map" ref="map" style={ divStyle}></div>

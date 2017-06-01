@@ -11,9 +11,11 @@
   .container-fluid {
     .navbar-header {
       font-size: 2em;
-      color: #e8e8e8;
       font-style: bold;
       line-height: 60px;
+      a {
+      color: #fff;
+      }
     }
     .data {
       font-size: 1em;
@@ -132,6 +134,10 @@ input.btn {
     margin-left: auto;
     margin-right: auto;
     border-radius: 15px;
+    nameandbutton{
+    display: flex;
+    align-items: center;
+    }
   .img-circle {
     float: left;
     border: 2px solid #ABC2C6;
@@ -140,13 +146,11 @@ input.btn {
   }
   .name{
     font-size: 3em;
-    float:right;
-    padding-right: 100px;
-    margin-top: 50px;
+    margin-left: 100px;
+    margin-top: 30px;
   }
   .connect-btn{
-    margin-left: 55px;
-    margin-top: 20px;
+    align-self: flex-end;
     background-color: #dc5b5b;
     color: #e8e8e8;
     border-width: 0px;

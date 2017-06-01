@@ -35,6 +35,8 @@ const longitude = {
   start: -122.40,
   end: -123.14
 };
+const map = {};
+let buffer = 'id,value,\nmentor,\n';
 const mentorList = [{name: 'Ray Chung',
     userType: randAry(userTypes),
     email: 'ray.chung@cisco.com',
@@ -184,6 +186,62 @@ async function initializeES() {
   await dropDocIndex();
   await createIndex();
 }
+
+parseCSV(map);
+reformatCSV();
+writeNewCSV();
+
+function parseCSV(map) {
+  mentorList.forEach(ele => {
+    if (map[ele['companyName']]) {
+      if (map[ele['companyName']][ele['educationDegree']]) {
+        map[ele['companyName']][ele['educationDegree']].push(ele['name']);
+      } else {
+        map[ele['companyName']][ele['educationDegree']] = [];
+        map[ele['companyName']][ele['educationDegree']].push(ele['name']);
+      }
+    } else {
+      map[ele['companyName']] = {};
+      map[ele['companyName']][ele['educationDegree']] = [];
+      map[ele['companyName']][ele['educationDegree']].push(ele['name']);
+    }
+  });
+
+
+  for (let company in map) {
+    let str = '';
+    if (map.hasOwnProperty(company)) {
+      str += 'mentor.' + company;
+    }
+    buffer += str + ',\n';
+    for (let degree in map[company]) {
+      let prepend = str + '.' + degree + '.';
+      buffer += str + '.' + degree + ',\n';
+      if (map[company].hasOwnProperty(degree)) {
+        map[company][degree].forEach(ele => {
+          buffer += prepend + ele + ',\n';
+        })
+      }
+    }
+  }
+}
+
+function writeNewCSV() {
+  fs.writeFile('../build/mentor.csv', buffer, err => {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('Successfully written to file');
+    }
+  })
+}
+
+function reformatCSV() {
+  buffer = buffer.replace(/(\.\.)|Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister|MD/g, match => {
+    return '';
+  });
+}
+
 
 function dropIndex() {
   console.log('in dropIndex()');

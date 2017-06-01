@@ -5,7 +5,7 @@ class MapLink extends Component {
   render() {
     return (
       <div className="Result">
-        <span>Found 10 results</span>
+        <span>Found {this.props.length} results</span>
         <Link to= {`/map`} >
         <span> View on Map</span>
         </Link>

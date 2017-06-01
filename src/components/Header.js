@@ -51,8 +51,8 @@ class Header extends Component {
             </div>{/*Navbar Header*/}
 
             <nav className="collapse navbar-collapse" id="bs-navbar">
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>STUDENT LOG IN</button>
-                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>MENTOR LOG IN</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.studentLogIn}>Signout</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={this.props.mentorLogin}>Signed in as Prachi</button>
                 <p className="navbar-text navbar-right data"><a href="/#/data" className="navbar-link">Data</a></p>
                 <p className="navbar-text navbar-right about"><a href="/#/" className="navbar-link">About</a></p>
 

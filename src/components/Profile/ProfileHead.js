@@ -30,7 +30,8 @@ class ProfileHead extends Component {
   sendRequest = (event) => {
     let request = {};
     request.sender = this.props.currentUser;
-    request.reciever = (request.sender % 2) + 1;
+    //request.reciever = (request.sender % 2) + 1;
+    request.reciever = this.props.id;
     const requestMessage = document.getElementById('myText').value;
     request.requestMessage = requestMessage;
     console.log('the request to be sent by student is ', request);

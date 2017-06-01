@@ -42,7 +42,7 @@ app.use(CORS());  // Cross-Origin Resource Sharing
 // app.use(knexLogger(knex));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/users', users(knex));
 
 app.use('/search', searchRoute(knex, CORS));
 
@@ -79,7 +79,7 @@ server.listen(PORT, function() {
 // student sents a request. request will have sender ID, reciever ID, request body, message type
 // mentor recieves a request, responds with a response, sender ID, reciever ID, response body, message type
 const STUDENT = 1;
-const MENTOR = 2;
+//const MENTOR = 2;
 
 var outGoingMsg = {};
 wss.on('connection', (ws) => {
@@ -92,15 +92,16 @@ wss.on('connection', (ws) => {
       case STUDENT:
         console.log('student sent a connect message');
         outGoingMsg.content = 'CONNECT REQUEST';
-        outGoingMsg.reciever = MENTOR;
+        outGoingMsg.reciever = '';
         outGoingMsg.requestMessage = message.requestMessage;
         break;
-      case MENTOR:
+      //case MENTOR:
+      default:
         console.log('mentor set a request');
          if (message.type === 'initialize') {
             console.log('mentor send in a initialize request');
             outGoingMsg.content = 'WAITING ON REQUEST';
-            outGoingMsg.reciever = MENTOR;
+            outGoingMsg.reciever = '';
             outGoingMsg.requestMessage = '';
           }
           if (message.type === 'confirm request')  {
@@ -109,7 +110,6 @@ wss.on('connection', (ws) => {
             outGoingMsg.reciever = STUDENT;
             outGoingMsg.requestMessage = '';
           }
-        break;
       }
 
     wss.clients.forEach(function each(client) {

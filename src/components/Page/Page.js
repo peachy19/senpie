@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const dispatchGetMentor = (id) => (dispatch) => {
-    axios.get(`http://localhost:8000/users/${id}`)
+    axios.get(`http://localhost:8000/users/${id}/profile`)
     .then(function(response) {
       console.log('Response is', response);
       dispatch(handleResponse([response.data]));
@@ -40,9 +40,7 @@ const dispatchGetMentor = (id) => (dispatch) => {
 @connect(mapStateToProps, mapDispatchToProps)
 class Profile extends Component {
   componentDidMount() {
-    if(this.props.mentors.length === 0) {
       this.props.dispatchGetMentor(this.props.id);
-    }
   }
 
   render() {

@@ -10,6 +10,7 @@ import Home from './HomePage/Home'
 import MapContainer from './Map/MapContainer'
 import DataPage from './Data/DataPage'
 import MentorDashboard from './Profile/MentorDashboard'
+import Page from './Page/Page.js'
 
 const RouterBody = () => (
   <Router>
@@ -19,6 +20,7 @@ const RouterBody = () => (
       <Route exact path="/user/:id" component={Profile}/>
       <Route path="/map" component={MapContainer}/>
       <Route path="/data" component={DataPage}/>
+      <Route exact path= "/user/:id/profile" component={Page}/>
       <Route path="/mentorDashboard" component={MentorDashboard}/>
     </div>
   </Router>

@@ -87,7 +87,7 @@ class ProfileHead extends Component {
                 </div>
                 <div className="modal-body">
                 <p id="sender">Prachi sent you a connection request</p>
-                <p id="modal-message"></p>
+                <p id="modal-message">Please add me</p>
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default modal-button-close" data-dismiss="modal">Decline</button>

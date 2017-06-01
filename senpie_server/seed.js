@@ -107,7 +107,7 @@ function fakerF() {
   const title = randAry(titles);
   const companyName = randAry(companyList);
   const degree = randAry(degrees);
-  name = name.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister/g, '');
+  name = name.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister|MD/g, '');
 
   const data = {
     name: name,

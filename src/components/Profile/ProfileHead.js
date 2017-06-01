@@ -10,7 +10,7 @@ class ProfileHead extends Component {
   }
 
   componentDidMount(){
-    this.socket = new WebSocket("ws://127.0.0.1:8000");
+    this.socket = new WebSocket("ws://127.0.0.1:7000");
     this.socket.onopen = () => console.log('connection is open');
     this.socket.onmessage = (msg) => {
       var message = JSON.parse(msg.data);

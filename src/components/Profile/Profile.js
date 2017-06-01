@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const dispatchGetMentor = (id) => (dispatch) => {
-    axios.get(`http://localhost:8000/users/${id}`)
+    axios.get(`http://localhost:7000/users/${id}`)
     .then(function(response) {
       console.log('Response is', response);
       dispatch(handleResponse([response.data]));

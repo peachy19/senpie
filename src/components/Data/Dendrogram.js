@@ -23,7 +23,7 @@ class Dendrogram extends Component {
 
       var link = g.selectAll('.link')
           .data(root.descendants().slice(1))
-        .enter().append('path')
+          .enter().append('path')
           .attr('class', 'link')
           .attr('d', function(d) {
             return 'M' + d.y + ',' + d.x

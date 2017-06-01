@@ -13,7 +13,7 @@ import logger from 'redux-logger';
 const reducer = combineReducers({...reducers});
 const store = compose(applyMiddleware(thunk, logger))(createStore)(reducer);
 
-const websocket = new WebSocket("ws://localhost:8000");
+const websocket = new WebSocket("ws://localhost:7000");
 
 render(
   <Provider store={store}>
@@ -21,4 +21,3 @@ render(
   </Provider>,
   document.getElementById('react-root')
 )
-

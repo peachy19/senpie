@@ -105,6 +105,11 @@ input.btn {
   stroke: #555;
   stroke-opacity: 0.4;
   stroke-width: 1.5px;
+  &:hover {
+    stroke: #1f6a95;
+    stroke-width: 8px;
+    stroke-opacity: 0.4;
+  }
 }
 
 .mentorList {

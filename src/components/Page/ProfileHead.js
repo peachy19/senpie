@@ -30,7 +30,7 @@ class ProfileHead extends Component {
   }
 
   componentDidMount(){
-    this.socket = new WebSocket("ws://127.0.0.1:8000");
+    this.socket = new WebSocket("ws://127.0.0.1:7000");
     this.props.dispatchMentorLogin(this.props.id);
     this.socket.onopen = () => {
       console.log("this socket is open");

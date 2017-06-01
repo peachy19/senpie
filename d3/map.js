@@ -96,7 +96,7 @@ function writeNewCSV() {
 }
 
 function reformatCSV() {
-  buffer = buffer.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister/g, match => {
+  buffer = buffer.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister|MD/g, match => {
     return '';
   });
 }

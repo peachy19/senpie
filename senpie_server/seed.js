@@ -24,7 +24,6 @@ const companyType = ['tech'];
 const titles = ['Software Engineer', 'Software Developer', 'Junior Software Developer', 'QA engineer', 'Software Engineer in Test', 'Senior Software Engineer', 'Intermediate Software Engineer', 'Programmer', 'QA Analyst'];
 const languages = ['C', 'C#', 'C++', 'Assembly', 'Python', 'Java', 'Haskell', 'Javascript', 'PHP', 'ruby', 'SQL', 'Rust', 'R', 'Swift', 'Julia', 'Miranda'];
 const companyList = [];
-const mentorList = [];
 const start = 1980;
 const end = 2017;
 const NUM_USERS = 100;
@@ -36,7 +35,19 @@ const longitude = {
   start: -122.40,
   end: -123.14
 };
-
+const mentorList = [{name: 'Ray Chung',
+    userType: randAry(userTypes),
+    email: 'ray.chung@cisco.com',
+    educationDegree: 'PhD',
+    gradYear: 2017,
+    companyName: 'Cisco',
+    companyType: randAry(companyType),
+    size: randNum(200000, 1000),
+    title: 'Software & Hardware Engineer Master',
+    description: generateDescription('Ray Chung', 2017, 'Software & Hardware Engineer Guru', 'Cisco', 'PhD'),
+    languages: 'Assembly VHDL Verilog C C++ C# Objective-C Haskell',
+    location: randLocation(latitude, longitude),
+    synon: synonyms('Cisco', 'PhD')}];
 
 const insertTables = require('../db/insert-helper')(knex);
 
@@ -96,7 +107,7 @@ function fakerF() {
   const title = randAry(titles);
   const companyName = randAry(companyList);
   const degree = randAry(degrees);
-  name = name.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister/g, '');
+  name = name.replace(/Mr.|Dr.|Miss.|Ms.|Jr.|Sr.|Mrs.|Miss|Mister|MD/g, '');
 
   const data = {
     name: name,

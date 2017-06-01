@@ -159,11 +159,10 @@ async function insertUser(data) {
   await insertTables.insertEducationDetail(user[0], educationDegree[0], data.gradYear);
   await insertTables.insertCompanyDetail(user[0], company[0], title[0]);
   await insertTables.insertSkill(data.languages, user[0]);
-  const location = await insertTables.insertLocation(user[0], randLocation(latitude, longitude));
+  await insertTables.insertLocation(user[0], randLocation(latitude, longitude));
 
   const concatData = parseObject(data);
 
-  console.log('concatData', concatData, user[0]);
   await addToIndex(concatData, user[0]);
 }
 

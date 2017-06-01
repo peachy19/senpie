@@ -36,6 +36,7 @@ class ProfileHead extends Component {
     console.log('the request to be sent by student is ', request);
     this.socket.send(JSON.stringify(request));
     this.setState({ connectiontStatus: 'REQUEST SENT' });
+    console.log('new this.state is', this.state);
   }
 
   render() {
@@ -43,11 +44,29 @@ class ProfileHead extends Component {
       <div className="panel panel-default profilehead">
         <div className="panel-body text-center">
           <img src="../../images/sample.jpeg" className="img-circle"/>
-          <p className="name">{this.props.name}</p>
-          <button onClick={this.sendRequest} className="btn btn-default connect-btn">{this.state.connectiontStatus}</button>
-          <form >
-            <input type="text" id='myText' className='form-control' placeholder='input your message here'></input>
-          </form>
+          <p>{this.props.name}</p>
+          <p>{this.props.title}</p>
+          <button className="btn btn-default" data-toggle="modal" data-target="#myModal">{this.state.connectiontStatus}</button>
+
+          <div id="myModal" className="modal fade" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 className="modal-title">Notice me Senpai </h4>
+                </div>
+                <div className="modal-body">
+                  <form>
+                    <input id='myText' type='text'/>
+                  </form>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <button onClick={this.sendRequest} type="button" className="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )

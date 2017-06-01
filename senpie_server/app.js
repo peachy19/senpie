@@ -91,6 +91,7 @@ wss.on('connection', (ws) => {
     switch (message.sender) {
       case STUDENT:
         console.log('student sent a connect message');
+        outGoingMsg.sender = STUDENT;
         outGoingMsg.content = 'CONNECT REQUEST';
         outGoingMsg.reciever = MENTOR;
         outGoingMsg.requestMessage = message.requestMessage;
@@ -102,12 +103,14 @@ wss.on('connection', (ws) => {
             outGoingMsg.content = 'WAITING ON REQUEST';
             outGoingMsg.reciever = MENTOR;
             outGoingMsg.requestMessage = '';
+            outGoingMsg.sender = 'SYSTEM MESSAGE';
           }
           if (message.type === 'confirm request')  {
             console.log('mentor is confirming a request');
             outGoingMsg.content = 'ACCEPTED';
             outGoingMsg.reciever = STUDENT;
             outGoingMsg.requestMessage = '';
+            outGoingMsg.sender = 'SYSTEM MESSAGE';
           }
         break;
       }

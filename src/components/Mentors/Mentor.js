@@ -27,7 +27,7 @@ class Mentor extends Component {
           <img src="../../images/sample.jpeg" height="70" width="70" className="img-circle" style={image}/>
           <div style={info} >
           <p>{this.props.name}</p>
-          <p>{this.props.title}</p>
+          <p className>{this.props.company}, {this.props.title}</p>
           </div>
         </div>
       </div>

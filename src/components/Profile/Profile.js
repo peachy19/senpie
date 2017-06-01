@@ -70,7 +70,8 @@ class Profile extends Component {
         <Skills
           skills={user.languages}/>
         <Education
-          education={user.grad_year}/>
+          education={user.grad_year}
+          degree={user.degree_name}/>
       </div>
     )
   }

@@ -1,14 +1,16 @@
-React Boilerplate
+Senpie
 =====================
 
-A minimal and light dev environment for ReactJS.
+A platform where a user can search for a mentor based on the jobtitle, skills and educational details. The user can view the locations of all the search results on the map and know their distance from the user's current location. User can also visualize all the mentors associated with the platform through D3 chart.
+
+Technologies involved include ReactJS, Redux, Node.JS, Express, PostgreSQL, HTML, SASS, Elastic Search, D3.js, Google Map API
 
 ### Usage
 
-Clone the boilerplate and create your own git repo.
+Clone the project and create your own git repo.
 
 ```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
+git clone git@github.com:peachy19/Senpie.git [YOUR PROJECT NAME]
 git remote rm origin
 git remote add origin [YOUR NEW REPOSITORY]
 # Manually update your package.json file
@@ -22,23 +24,10 @@ npm start
 open http://localhost:4000
 ```
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:4000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
-
 ### Dependencies
 
 * React
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* Elastic Search
